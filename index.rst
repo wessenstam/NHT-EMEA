@@ -15,20 +15,10 @@ Getting Started
 
 .. raw:: html
 
-  <strong><font color="red">Do not start any labs before being told to do so by your instructor.</font></strong>
+  <strong><font color="red">Do not start any labs before being told to do so by your
+  instructor.</font></strong><br><br>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed velit odio, ultrices sed elementum vitae, dictum eget turpis. Etiam ultrices orci quis tempus tempus. Nulla non nibh imperdiet, suscipit risus quis, eleifend nisl. Morbi at posuere nibh, quis bibendum dui. Morbi dictum sem a ipsum bibendum condimentum. Suspendisse id ante gravida, efficitur leo a, consequat enim. Suspendisse tempor lorem vel purus scelerisque, vel facilisis lorem consequat. Pellentesque augue orci, iaculis vel mollis sit amet, scelerisque a tellus. Aliquam commodo in lectus feugiat porta.
-
-.. _cluster_details:
-
-Cluster Details
-+++++++++++++++
-
-Using the spreadsheet below, locate your **Team Number** and corresponding details for your assigned cluster.
-
-.. raw:: html
-
-  <iframe src="" style="position: relative; height: 600px; width: 98%; border: none"></iframe>
+Welcome to Nutanix New Hire Training! Carefully review the **Overview** section of each lab before proceeding with the exercise.
 
 Cluster Access Options
 ++++++++++++++++++++++
@@ -42,7 +32,7 @@ https://citrixready.nutanix.com - *Accessible via the Citrix Receiver client or 
 
 **Nutanix Employees** - Use your NUTANIXDC credentials
 
-**Non-Employee** - **Username:** POCxxx-User01 (up to POCxxx-User20), **Password:** <RX Provided Password>
+**Non-Employee** - **Username:** POCxxx-User01 (up to POCxxx-User20), **Password:** *<Instructor Provided>*
 
 Employee Pulse Secure VPN
 ..........................
@@ -52,7 +42,7 @@ https://sslvpn.nutanix.com - Use your CORP credentials
 Non-Employee Pulse Secure VPN
 ..............................
 
-https://lab-vpn.nutanix.com - **Username:** POCxxx-User01 (up to POCxxx-User20), **Password:** <RX Provided Password>
+https://lab-vpn.nutanix.com - **Username:** POCxxx-User01 (up to POCxxx-User20), **Password:** *<Instructor Provided>*
 
 Under **Client Application Sessions**, click **Start** to the right of **Pulse Secure** to download the client.
 
