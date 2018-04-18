@@ -20,8 +20,12 @@ Getting Started
 
 Welcome to Nutanix New Hire Training! Carefully review the **Overview** section of each lab before proceeding with the exercise.
 
-Cluster Access Options
-++++++++++++++++++++++
+Cluster Access
+++++++++++++++
+
+.. note::
+
+  The Foundation lab requires uploading a large file to your Foundation VM, for this reason you are strongly encouraged to connect to the environment using a virtual desktop.
 
 The Nutanix Hosted POC environment can be accessed a number of different ways:
 
@@ -30,17 +34,26 @@ Citrix XenDesktop
 
 https://citrixready.nutanix.com - *Accessible via the Citrix Receiver client or HTML5*
 
-**Nutanix Employees** - Use your NUTANIXDC credentials
+**Nutanix Employees** - Use your NUTANIXDC.local credentials
 
 **Non-Employee** - **Username:** POCxxx-User01 (up to POCxxx-User20), **Password:** *<Instructor Provided>*
+
+VMware Horizon View
+...................
+
+https://hostedpoc.nutanix.com - *Accessible via the Horizon View client or HTML5*
+
+**Nutanix Employees** - Use your NUTANIXDC.local credentials
+
+**Partners** - **Username:** POCxxx-User01 (up to POCxxx-User20), **Password:** *<Instructor Provided>*
 
 Employee Pulse Secure VPN
 ..........................
 
 https://sslvpn.nutanix.com - Use your CORP credentials
 
-Non-Employee Pulse Secure VPN
-..............................
+Partner Pulse Secure VPN
+........................
 
 https://lab-vpn.nutanix.com - **Username:** POCxxx-User01 (up to POCxxx-User20), **Password:** *<Instructor Provided>*
 
