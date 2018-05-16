@@ -1,8 +1,8 @@
 .. _foundation_lab:
 
-----------
-Foundation
-----------
+------------------------------
+Foundation - New Hire Training
+------------------------------
 
 Overview
 ++++++++
@@ -30,6 +30,34 @@ Using the spreadsheet below, locate your **Student Number** and corresponding de
 .. raw:: html
 
   <iframe src=https://docs.google.com/spreadsheets/d/e/2PACX-1vQyI5rZlI4OQ5KbbUmEYXYRKb7zHvmFGQlqBmFqynNc4BNNlzBvgUamtfIdy2AlGLZYektSupV1_72a/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:l41 style="position: relative; height: 300px; width: 98%; border: none"></iframe>
+
+Cabling Your Hardware
++++++++++++++++++++++
+
+.. note::
+
+  The following lab will be performed with a cluster in the Nutanix Hosted POC environment. The information on cabling below is for reference when performing a physical, baremetal Nutanix installation.
+
+Foundation requires connectivity to **both** the standard network interface of a node and the Baseboard Management Controller (BMC) network interface. The BMC, called **IPMI** on Nutanix NX nodes, is a dedicated system present in every enterprise server platform used for out of band management. Other supported platforms use different names for IPMI, such as iDRAC on Dell, IMM on Lenovo, and iLO on HPE.
+
+Referring to the example diagram below, there are two options for cabling Nutanix nodes prior to imaging with Foundation:
+
+- Using two cables per node, one connected to either onboard LAN port and one connected to the dedicated IPMI port.
+- Using one cable per node, connected to the **Shared IPMI** port. With only the **Shared** port connected, it is capable of intelligently forwarding traffic to either the IPMI or LAN interface, allowing Foundation to communicate with both interfaces simultaneously.
+
+.. figure:: images/back-panel.png
+
+.. note::
+
+  During node power off/on the Shared port on certain platforms may switch between 100Mb and 1Gb speeds, which can cause issues if your switch cannot auto-negotiate to the proper speed.
+
+  Additionally, for nodes such as the NX-3175 which only have 10Gb SFP+ onboard NICs, the 1Gb transceiver used to connect to your flat switch requires electrical power. That power is only available when the node is powered on, making it critical to use two cables per node in this situation.
+
+  Overall, if there are sufficient cables and ports available, using two cables per node is preferred.
+
+Both the nodes and the host used to run the Foundation VM should be connected to the same flat switch. If imaging on a customer switch, ensure that any ports used are configured as **Access** or **Untagged**, or that a **Native** VLAN has been configured.
+
+Refer to the appropriate `manufacturer's hardware documentation <https://portal.nutanix.com/#/page/docs/list?type=hardware>`_ to determine the locations of the **IPMI** and **Shared** ports.
 
 Installing Foundation
 +++++++++++++++++++++
@@ -89,6 +117,10 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields, select 
 
 .. figure:: images/4.png
 
+.. note::
+
+  The Foundation VM IP address should be in the same subnet as the target IP range for the CVM/hypervisor of the nodes being imaged. As Foundation is typically performed on a flat switch and not on a production network, the Foundation IP can generally be any IP in the target subnet that doesn't conflict with the CVM/hypervisor/IPMI IP of a targeted node.
+
 Select **Save** and press **Return**.
 
 .. figure:: images/5.png
@@ -103,6 +135,10 @@ Running Foundation
 ++++++++++++++++++
 
 Open \https://*<Foundation VM IP>*:8000/gui/index.html in your browser to access Foundation.
+
+.. note::
+
+  **DO NOT** access the Foundation UI from the Foundation VM console. Close your Foundation VM console and access the Foundation UI via a browser in your Citrix desktop.
 
 Review the **Start** page details as it contains several helpful tips for cabling your physical hardware. Click **Next**.
 
@@ -207,6 +243,20 @@ Fill out the following fields and click **Start > Proceed**:
 Continue to monitor Foundation progress through the Foundation web console. Click the **Log** link to view the realtime log output from your node.
 
 .. figure:: images/19.png
+
+Foundation will leverage IPMI (or the Out of Band Management standard for the given hardware platform, e.g. iDRAC, iLO, CIMC, etc.) to boot each node to a virtual CD image called Phoenix. The Phoenix image contains what are called "Layout Modules." Layout Modules provide critical hardware information to the installer, allowing Nutanix to support a wide range of hardware configurations (NX, Dell, Lenovo, IBM, Cisco, HPE, Klas, Crystal, etc.).
+
+Phoenix will download the AOS and hypervisor binaries from the Foundation VM. Once Phoenix is booted on each node, Phoenix communicates with Foundation via the node's LAN connection. IPMI is only used for mounting the virtual CD image.
+
+Phoenix will then perform an automated installation of the hypervisor (including any packaged drivers) to the appropriate boot media (SATADOM, SD Card, M.2 SSD) and writes the CVM filesystem to a dedicated partition on the first SSD in the system (NOT on the hypervisor boot media).
+
+After these tasks are completed, the node reboots to the newly installed hypervisor. The hypervisor iterates through the SSDs to find out which SSD has the CVM, and then boots the CVM. Firstboot scripts are run to prepare the hypervisor and CVM on the node, including setting IP information.
+
+When all CVMs are ready, Foundation initiates the cluster creation process.
+
+.. note::
+
+  In this lab Foundation will not automatically create the cluster due to only a single node being selected. Proceed to the following section to complete cluster creation.
 
 Creating the Cluster
 ++++++++++++++++++++

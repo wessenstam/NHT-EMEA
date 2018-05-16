@@ -2,11 +2,12 @@
 
 .. toctree::
   :maxdepth: 2
-  :caption:     Labs
+  :caption: Labs
   :name: _labs
   :hidden:
 
   foundation/foundation
+  diyfoundation/diyfoundation
 
 .. _getting_started:
 
