@@ -68,7 +68,10 @@ Foundation is distributed as a VM image that can be run on multiple platforms, i
 
   Always use the latest available version of Foundation to image your cluster.
 
-Open https://10.21.22.37:9440 in your browser to access Prism. Log in as the **admin** user.
+Open https://10.21.22.37:9440 in your browser to access Prism. Log in with the following credentials:
+
+- **Username** - admin
+- **Password** - *<Insturctor Provided>*
 
 In **Prism > VM > Table**, click **+ Create VM**.
 
@@ -92,7 +95,7 @@ Select your **Foundation-<Student Number>** VM and click **Power on**.
 
 Once the VM has started, click **Launch Console**.
 
-Once the VM has finished booting, click **nutanix**. Enter the default password and click **Log In**.
+Once the VM has finished booting, click **nutanix**. Enter the default password (**nutanix/4u**) and click **Log In**.
 
 .. figure:: images/1.png
 
@@ -134,7 +137,7 @@ Close the Foundation VM console.
 Running Foundation
 ++++++++++++++++++
 
-Open \https://*<Foundation VM IP>*:8000/gui/index.html in your browser to access Foundation.
+Open \http://*<Foundation VM IP>*:8000/gui/index.html in your browser to access Foundation.
 
 .. note::
 
