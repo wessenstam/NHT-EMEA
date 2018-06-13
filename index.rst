@@ -6,7 +6,7 @@
   :name: _labs
   :hidden:
 
-  foundation/foundation
+  groupfoundation/foundation
   diyfoundation/diyfoundation
 
 .. _getting_started:

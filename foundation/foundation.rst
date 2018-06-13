@@ -1,8 +1,8 @@
 .. _foundation_lab:
 
-------------------------------
-Foundation - New Hire Training
-------------------------------
+------------------------------------------
+Single Node Foundation - New Hire Training
+------------------------------------------
 
 Overview
 ++++++++
