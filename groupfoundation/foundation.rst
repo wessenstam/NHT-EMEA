@@ -63,69 +63,28 @@ Refer to the appropriate `manufacturer's hardware documentation <https://portal.
 Staging Your Environment
 ++++++++++++++++++++++++
 
-A Hosted POC reservation provides a fully imaged cluster consisting of 4 nodes. To keep the lab self-contained within a single, physical block, you will:
+A Hosted POC reservation provides a fully imaged cluster consisting of 4 nodes. To shorten this exercise, your environment has been staged as follows:
 
-- Destroy the existing cluster
-- Create a single node "cluster" using Node A
+- The existing cluster has been stopped and destroyed
+- A single node "cluster" using Node A has been created
+- The Foundation VM disk image has been staged in the Node A cluster Image Service
+
+During the remainder of the exercise, your team will:
+
 - Install the Foundation VM on Node A
 - Use Foundation to image Nodes B, C, and D and create a 3 node cluster
 
-Using an SSH client, connect to the **Node A CVM IP** (e.g. 10.21.\ *XYZ*\ .29) in your assigned block using the following credentials:
-
-- **Username** - nutanix
-- **Password** - techX2018!
-
-Execute the following commands to power off any running VMs on the cluster, stop cluster services, and destroy the existing cluster:
-
-.. code-block:: bash
-
-  acli -y vm.off \*
-  cluster stop        # Enter 'Y' when prompted to proceed
-  cluster destroy     # Enter 'Y' when prompted to proceed
-
-Replacing the **Node A CVM IP**, execute the following to manually create the cluster:
-
-.. code-block:: bash
-
-  cluster --cluster_name=Foundation --dns_servers=10.21.253.10 --ntp_servers=10.21.253.10 --svm_ips=<NODE A CVM IP> create
-
-.. note::
-
-  The above command will create a "cluster" from a single node using RF1, offering no redundancy to recover from hardware failure. This configuration is being used for non-production, instructional purposes and should **NEVER** be used for a customer deployment.
-
-  After the "cluster" is created, Prism will reflect Critical Health status due to lack of redundancy.
-
-  .. figure:: images/0.png
-
-Open \https://*<NODE A CVM IP>*:9440 in your browser and log in with the following credentials:
-
-- **Username** - admin
-- **Password** - Nutanix/4u
-
-Provide a new **admin** password that conforms to the displayed password policy. Log in as **admin** using your new password.
-
-Accept the EULA and Pulse prompts.
+For the complete steps used to stage the environment, refer to :ref:`diyfoundation_lab`.
 
 Installing Foundation
 +++++++++++++++++++++
 
-In **Prism**, click :fa:`cog` **> Image Configuration > + Upload Image**.
+Open \https://*<NODE A CVM IP>*:9440 in your browser and log in with the following credentials:
 
-Fill out the following fields and click **Save**:
+- **Username** - admin
+- **Password** - techX2018!
 
-- **Name** - Foundation
-- **Image Type** - Disk
-- **Storage Container** - default-container
-- Select **From URL**
-- **Image Source** - http://10.21.22.50/Foundation_VM-4.0.5-disk-0.qcow2
-
-.. note::
-
-  At the time of writing, Foundation 4.0.5 is the latest available version. The URL for the latest Foundation QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
-
-  **Unless otherwise directed by support, always use the latest version of Foundation.**
-
-After the image creation process completes, browse to **Prism > VM > Table** and click **Network Config**.
+Open **Prism > VM > Table** and click **Network Config**.
 
 Before creating the VM, we must first create a virtual network to assign to the Foundation VM. The network will use the Native VLAN assigned to the physical uplinks for all 4 nodes in the block.
 
@@ -155,6 +114,12 @@ Fill out the following fields and click **Save**:
   - Select **Add**
 
 Select your **Foundation** VM and click **Power on**.
+
+.. note::
+
+  At the time of writing, Foundation 4.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
+
+  **Unless otherwise directed by support, always use the latest version of Foundation.**
 
 Once the VM has started, click **Launch Console**.
 
@@ -195,7 +160,9 @@ Select **Save & Quit** and press **Return**.
 
 .. figure:: images/6.png
 
-Close the Foundation VM console.
+.. raw:: html
+
+  <strong><font color="red">Close the Foundation VM console. You will use the browser in your Citrix XenDesktop session for the remainder of the lab.</font></strong>
 
 Running Foundation
 ++++++++++++++++++
@@ -354,3 +321,31 @@ Open \https://*<Cluster Virtual IP>*:9440 in your browser and log in with the fo
 - **Password** - Nutanix/4u
 
 .. figure:: images/21.png
+
+Post-Foundation Network Configuration
+.....................................
+
+.. note::
+
+  The steps below are provided for **informational purposes only**. The HPOC environment uses a Native VLAN for the CVM/hypervisor and changes are not required. **Explicitly setting CVM/hypervisor VLAN in the HPOC environment will result in a loss of connectivity between nodes.**
+
+By default, the hypervisor management interface and CVM are both assigned to VLAN 0, often referred to as an **Untagged** or **Access** configuration.
+
+In many environments, the CVM/hypervisor VLAN may not be the Native VLAN assigned to the physical switchports to which each Nutanix node will be connected. In this case, it is important to assign the proper VLAN to the CVM and hypervisor for each host before the nodes will be able to communicate on the customer network.
+
+Using a crashcart, or SSH while the nodes are still connected to a flat switch, assign the CVM VLAN followed by the hypervisor VLAN for each node:
+
+AHV
+...
+
+Refer to the `AHV Administration Guide <https://portal.nutanix.com/#/page/docs/details?targetId=AHV-Admin-Guide-v56:ahv-acr-nw-segmentation-c.html>`_ for steps on configuring CVM and host VLAN.
+
+ESXi
+....
+
+Coming soon!
+
+Hyper-V
+.......
+
+Coming soon!
