@@ -86,7 +86,7 @@ Replacing the **Node A CVM IP**, execute the following to manually create the cl
 
 .. code-block:: bash
 
-  cluster --cluster_name=Foundation --dns_servers=10.21.253.10 --ntp_servers=10.21.253.10 --svm_ips=<NODE A CVM IP> create
+  cluster --cluster_name=FoundationLab --dns_servers=10.21.253.10 --ntp_servers=10.21.253.10 --svm_ips=<NODE A CVM IP> create
 
 .. note::
 

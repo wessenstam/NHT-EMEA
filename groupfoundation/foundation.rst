@@ -86,6 +86,8 @@ Open \https://*<NODE A CVM IP>*:9440 in your browser and log in with the followi
 
 Open **Prism > VM > Table** and click **Network Config**.
 
+.. figure:: images/0.png
+
 Before creating the VM, we must first create a virtual network to assign to the Foundation VM. The network will use the Native VLAN assigned to the physical uplinks for all 4 nodes in the block.
 
 Click **User VM Interfaces > Create Network**.
