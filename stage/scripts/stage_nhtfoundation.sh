@@ -28,7 +28,7 @@ if [[ -z ${MY_PE_PASSWORD+x} ]]; then
 fi
 
 # Create single node cluster
-yes | cluster --cluster_name=FoundationLab --dns_servers=10.21.253.10 --ntp_servers=10.21.253.10 --svm_ips=${MY_CVM_IP} create
+yes | cluster --cluster_name=LAB --dns_servers=10.21.253.10 --ntp_servers=10.21.253.10 --svm_ips=${MY_CVM_IP} create
 
 # Wait for Prism to start
 sleep 300

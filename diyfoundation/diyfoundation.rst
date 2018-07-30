@@ -120,7 +120,7 @@ Fill out the following fields and click **Save**:
 
 .. note::
 
-  At the time of writing, Foundation 4.0.3 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
+  At the time of writing, Foundation 4.1.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
 
   **Unless otherwise directed by support, always use the latest version of Foundation.**
 
@@ -128,7 +128,7 @@ After the image creation process completes, browse to **Prism > VM > Table** and
 
 Before creating the VM, we must first create a virtual network to assign to the Foundation VM. The network will use the Native VLAN assigned to the physical uplinks for all 4 nodes in the block.
 
-Click **User VM Interfaces > Create Network**.
+Click **Virtual Networks > Create Network**.
 
 Fill out the following fields and click **Save**:
 
@@ -205,9 +205,9 @@ Open \https://*<Foundation VM IP>*:8000/gui/index.html in your browser to access
 
   **DO NOT** access the Foundation UI from the Foundation VM console. Close your Foundation VM console and access the Foundation UI via a browser in your Citrix desktop.
 
-Review the **Start** page details as it contains several helpful tips for cabling your physical hardware. Click **Next**.
+On the **Start** page, click **Next**.
 
-.. figure:: images/7.png
+  .. note:: Foundation node/cluster settings can be pre-configured using https://install.nutanix.com and imported from the **Start** page.
 
 Foundation will automatically discover any hosts in the same IPv6 Link Local broadcast domain that is not already part of a cluster.
 
@@ -270,7 +270,7 @@ Click **+ Add > Choose File**. Select your downloaded *nutanix_installer_package
 
 .. figure:: images/15.png
 
-After the upload completes, click **Close**.
+After the upload completes, click **Close**. Click **Next**.
 
 .. figure:: images/16.png
 
@@ -289,8 +289,7 @@ Using AHV
 
 Fill out the following fields and click **Next**:
 
-- **AOS Installer for Every Node** - *nutanix_installer_package-release-\*.tar.gz*
-- **Hypervisor Installer for Every Node** - AHV, AHV installer bundled inside the AOS installer
+- **Select a hypervisor installer** - AHV, AHV installer bundled inside the AOS installer
 
 .. figure:: images/17.png
 
@@ -325,13 +324,13 @@ Using Hyper-V
 Post-Hypervisor Configuration
 .............................
 
-Select **Nutanix** from the **Fill with vendor defaults** dropdown menu to populate the credentials used to access IPMI on each node.
+Select **Fill with Nutanix defaults** from the **Tools** dropdown menu to populate the credentials used to access IPMI on each node.
 
 .. figure:: images/18.png
 
 .. note:: When performing a baremetal Foundation in the field, ensure your laptop will not go to sleep due to inactivity.
 
-Continue to monitor Foundation progress through the Foundation web console. Click the **Log** link to view the realtime log output from your node.
+Click **Start > Proceed** and continue to monitor Foundation progress through the Foundation web console. Click the **Log** link to view the realtime log output from your node.
 
 .. figure:: images/19.png
 

@@ -7,6 +7,7 @@
   :hidden:
 
   groupfoundation/foundation
+  .. xray/xray
   diyfoundation/diyfoundation
 
 .. _getting_started:

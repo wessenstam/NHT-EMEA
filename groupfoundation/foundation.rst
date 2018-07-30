@@ -1,8 +1,8 @@
 .. _groupfoundation_lab:
 
-------------------------------------
-Group Foundation - New Hire Training
-------------------------------------
+--------------------------------------
+New Hire Training Group Foundation Lab
+--------------------------------------
 
 Overview
 ++++++++
@@ -65,14 +65,14 @@ Staging Your Environment
 
 A Hosted POC reservation provides a fully imaged cluster consisting of 4 nodes. To shorten this exercise, your environment has been staged as follows:
 
-- The existing cluster has been stopped and destroyed
-- A single node "cluster" using Node A has been created
-- The Foundation VM disk image has been staged in the Node A cluster Image Service
+- A three node cluster using Nodes A, B, and C has been created
+- A single node LAB "cluster" using Node D has been created
+- The Foundation VM disk image has been staged in the Node D cluster Image Service
 
 During the remainder of the exercise, your team will:
 
-- Install the Foundation VM on Node A
-- Use Foundation to image Nodes B, C, and D and create a 3 node cluster
+- Install the Foundation VM on Node D
+- Use Foundation to image Nodes A, B, and C and create a 3 node cluster
 
 For the complete steps used to stage the environment, refer to :ref:`diyfoundation_lab`.
 
@@ -90,12 +90,19 @@ Open **Prism > VM > Table** and click **Network Config**.
 
 Before creating the VM, we must first create a virtual network to assign to the Foundation VM. The network will use the Native VLAN assigned to the physical uplinks for all 4 nodes in the block.
 
-Click **User VM Interfaces > Create Network**.
+Click **Virtual Networks > Create Network**.
 
 Fill out the following fields and click **Save**:
 
 - **Name** - Primary
 - **VLAD ID** - 0
+
+Click **Create Network**. Fill out the following fields and click **Save**:
+
+- **Name** - Secondary
+- **VLAD ID** - *<HPOC NUMBER>1* (e.g. POC039 -> 391)
+
+.. figure:: images/00.png
 
 In **Prism > VM > Table** and click **+ Create VM**.
 
@@ -119,7 +126,7 @@ Select your **Foundation** VM and click **Power on**.
 
 .. note::
 
-  At the time of writing, Foundation 4.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
+  At the time of writing, Foundation 4.1.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
 
   **Unless otherwise directed by support, always use the latest version of Foundation.**
 
@@ -175,28 +182,42 @@ Open \http://*<Foundation VM IP>*:8000/gui/index.html in your browser to access 
 
   **DO NOT** access the Foundation UI from the Foundation VM console. Close your Foundation VM console and access the Foundation UI via a browser in your Citrix desktop.
 
-Review the **Start** page details as it contains several helpful tips for cabling your physical hardware. Click **Next**.
+On the **Start** page, click **Next**.
 
-.. figure:: images/7.png
+.. note:: Foundation node/cluster settings can be pre-configured using https://install.nutanix.com and imported from the **Start** page.
 
-Foundation will automatically discover any hosts in the same IPv6 Link Local broadcast domain that is not already part of a cluster.
-
-.. figure:: images/8.png
+Click **Click here** to manually specify the MAC address of your assigned node.
 
 .. note::
 
-  When transferring POC assets in the field, it's not uncommon to receive a cluster that wasn't properly destroyed at the conclusion of the previous POC. In this lab, the nodes should be automatically discovered. See :ref:`foundation_lab` for steps on manually adding nodes based on IPMI MAC addresses.
+  Foundation will automatically discover any hosts in the same IPv6 Link Local broadcast domain that is not already part of a cluster. When transferring POC assets in the field, it's not uncommon to receive a cluster that wasn't properly destroyed at the conclusion of the previous POC. In this lab, the nodes are already part of existing clusters and will not be discovered.
 
-Replacing the octet(s) that correspond to your HPOC network, fill out the following fields and select **Next**:
+Fill out the following fields and click **Add Nodes**:
 
-- **IPMI IP** - 10.21.\ *XYZ*\ .34
-- **Hypervisor IP** - 10.21.\ *XYZ*\ .26
-- **CVM IP** - 10.21.\ *XYZ*\ .30
-- **Node B Hypervisor Hostname** - POC\ *XYZ*\ -2
-- **Node C Hypervisor Hostname** - POC\ *XYZ*\ -3
-- **Node D Hypervisor Hostname** - POC\ *XYZ*\ -4
+- **Number of Blocks** - 1
+- **Nodes per Block** - 3
+- Select **I will provide the IPMI MACs**
+
+.. figure:: images/7.png
+
+Using the `Cluster Details`_ spreadsheet, fill out the following fields for **Nodes A, B, and C ONLY** and click **Next**:
+
+- **Node** - *<Node Position>*
+- **IPMI MAC** - *<IPMI MAC>*
+- **IPMI IP** - *<IPMI IP>*
+- **Hypervisor IP** - *<Hypervisor IP>*
+- **CVM IP** - *<CVM IP>*
+- **Hypervisor Hostname** - *<Hypervisor Hostname>*
 
 .. figure:: images/10.png
+
+.. note::
+
+  Use **Tools > Range Autofill** to quickly specify Node IPs.
+
+.. note::
+
+  In addition to the IPMI MAC address labels on the back of each node. Watchtower can be used to collect the IPMI MAC addresses of any NX appliance: *\http://watchtower.corp.nutanix.com/factoryData/<Block Serial>/*
 
 Fill out the following fields and click **Next**:
 
@@ -240,27 +261,13 @@ Click **+ Add > Choose File**. Select your downloaded *nutanix_installer_package
 
 .. figure:: images/15.png
 
-After the upload completes, click **Close**.
+After the upload completes, click **Close**. Click **Next**.
 
 .. figure:: images/16.png
 
-Select a target hypervisor:
-
-- :ref:`diyfoundation_lab_ahv`
-- :ref:`diyfoundation_lab_vsphere`
-- :ref:`diyfoundation_lab_hyperv`
-
---------------------------------------------------------------
-
-.. _diyfoundation_lab_ahv:
-
-Using AHV
-.........
-
 Fill out the following fields and click **Next**:
 
-- **AOS Installer for Every Node** - *nutanix_installer_package-release-\*.tar.gz*
-- **Hypervisor Installer for Every Node** - AHV, AHV installer bundled inside the AOS installer
+- **Select a hypervisor installer** - AHV, AHV installer bundled inside the AOS installer
 
 .. figure:: images/17.png
 
@@ -272,36 +279,13 @@ Fill out the following fields and click **Next**:
 
   When selecting an alternate hypervisor (ESXi, Hyper-V, XenServer) you can use this page to upload installation ISO files and, if necessary, modified whitelists.
 
-Continue to :ref:`diyfoundation_lab_posthypervisor`.
-
-.. _diyfoundation_lab_vsphere:
-
-Using vSphere
-.............
-
-*Coming soon*
-
-.. _diyfoundation_lab_hyperv:
-
-Using Hyper-V
-.............
-
-*Coming soon*
-
---------------------------------------------------------------
-
-.. _diyfoundation_lab_posthypervisor:
-
-Post-Hypervisor Configuration
-.............................
-
-Select **Nutanix** from the **Fill with vendor defaults** dropdown menu to populate the credentials used to access IPMI on each node.
+Select **Fill with Nutanix defaults** from the **Tools** dropdown menu to populate the credentials used to access IPMI on each node.
 
 .. figure:: images/18.png
 
 .. note:: When performing a baremetal Foundation in the field, ensure your laptop will not go to sleep due to inactivity.
 
-Continue to monitor Foundation progress through the Foundation web console. Click the **Log** link to view the realtime log output from your node.
+Click **Start > Proceed** and continue to monitor Foundation progress through the Foundation web console. Click the **Log** link to view the realtime log output from your node.
 
 .. figure:: images/19.png
 
@@ -324,8 +308,10 @@ Open \https://*<Cluster Virtual IP>*:9440 in your browser and log in with the fo
 
 .. figure:: images/21.png
 
+Change the password, accept the EULA, and enable Pulse.
+
 Post-Foundation Network Configuration
-.....................................
++++++++++++++++++++++++++++++++++++++
 
 .. note::
 
