@@ -171,7 +171,7 @@ Select **Save & Quit** and press **Return**.
 
 .. raw:: html
 
-  <strong><font color="red">Close the Foundation VM console. You will use the browser in your Citrix XenDesktop session for the remainder of the lab.</font></strong>
+  <br><strong><font color="red">Close the Foundation VM console. You will use the browser in your Citrix XenDesktop session for the remainder of the lab.</font></strong>
 
 Running Foundation
 ++++++++++++++++++

@@ -2,6 +2,7 @@
 
 WORKSHOPS=("NHT Foundation Lab" \
 "Change Cluster Input File" \
+"Validate Staged Clusters" \
 "Quit")
 
 function remote_exec {
@@ -12,6 +13,10 @@ function send_file {
   FILENAME="${1##*/}"
 
   sshpass -p $MY_PE_PASSWORD scp -o StrictHostKeyChecking=no -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null "$1" nutanix@$MY_PE_HOST:/home/nutanix/"${FILENAME}"
+}
+
+function acli {
+	remote_exec /usr/local/nutanix/bin/acli "$@"
 }
 
 # Get list of clusters from user
@@ -38,6 +43,10 @@ function select_workshop {
       ;;
       "Change Cluster Input File")
       get_file
+      break
+      ;;
+      "Validate Staged Clusters")
+      validate_clusters
       break
       ;;
       "Quit")
@@ -92,6 +101,26 @@ function stage_clusters {
   done
 
   echo "Progress of individual clusters can be monitored by SSHing to the cluster's virtual IP and running 'tail -f /home/nutanix/config.log'."
+  exit
+}
+
+function validate_clusters {
+  for MY_LINE in `cat ${CLUSTER_LIST} | grep -v ^#`
+  do
+    set -f
+    array=(${MY_LINE//|/ })
+    MY_PE_HOST=${array[0]}
+    MY_PE_PASSWORD=${array[1]}
+    array=(${MY_PE_HOST//./ })
+    MY_HPOC_NUMBER=${array[2]}
+
+    if [[ $(acli vm.list) =~ "STAGING-FAILED" ]]; then
+      echo -e "\e[1;31m${MY_PE_HOST} - Image staging FAILED\e[0m"
+      echo ${MY_PE_HOST} - Review log at ${MY_PE_HOST}:/home/nutanix/config.log
+    else
+      echo -e "\e[1;32m${MY_PE_HOST} - Staging successful!"
+    fi
+  done
   exit
 }
 

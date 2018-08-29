@@ -8,11 +8,11 @@ MY_CVM_IP=$(/sbin/ifconfig eth0 | grep 'inet ' | awk '{ print $2}')
 array=(${MY_CVM_IP//./ })
 MY_HPOC_SITE=${array[1]}
 MY_HPOC_NUMBER=${array[2]}
-
+MY_NEW_PE_PASSWORD='techX2018!'
 MY_SP_NAME='SP01'
 MY_CONTAINER_NAME='Default'
 MY_IMG_CONTAINER_NAME='Images'
-MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.1/Foundation_VM-4.1-disk-0.qcow2'
+MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.1.2/Foundation_VM-4.1.2-disk-0.qcow2'
 
 # Source Nutanix environments (for PATH and other things)
 source /etc/profile.d/nutanix_env.sh
@@ -28,13 +28,13 @@ if [[ -z ${MY_PE_PASSWORD+x} ]]; then
 fi
 
 # Create single node cluster
-yes | cluster --cluster_name=LAB --dns_servers=10.21.253.10 --ntp_servers=10.21.253.10 --svm_ips=${MY_CVM_IP} create
+yes | cluster --cluster_name=NHTLab --dns_servers=10.21.253.10 --ntp_servers=10.21.253.10 --svm_ips=${MY_CVM_IP} create
 
 # Wait for Prism to start
 sleep 300
 
 # Set Admin password
-ncli user reset-password user-name='admin' password=${MY_PE_PASSWORD}
+ncli user reset-password user-name='admin' password=${MY_NEW_PE_PASSWORD}
 
 # Rename default storage pool to MY_SP_NAME
 my_log "Rename default storage pool to ${MY_SP_NAME}"
@@ -63,7 +63,7 @@ done
 
 # Validate EULA on PE
 my_log "Validate EULA on PE"
-curl -u admin:${MY_PE_PASSWORD} -k -H 'Content-Type: application/json' -X POST \
+curl -u admin:${MY_NEW_PE_PASSWORD} -k -H 'Content-Type: application/json' -X POST \
   https://127.0.0.1:9440/PrismGateway/services/rest/v1/eulas/accept \
   -d '{
     "username": "SE",
@@ -73,7 +73,7 @@ curl -u admin:${MY_PE_PASSWORD} -k -H 'Content-Type: application/json' -X POST \
 
 # Disable Pulse in PE
 my_log "Disable Pulse in PE"
-curl -u admin:${MY_PE_PASSWORD} -k -H 'Content-Type: application/json' -X PUT \
+curl -u admin:${MY_NEW_PE_PASSWORD} -k -H 'Content-Type: application/json' -X PUT \
   https://127.0.0.1:9440/PrismGateway/services/rest/v1/pulse \
   -d '{
     "defaultNutanixEmail": null,
