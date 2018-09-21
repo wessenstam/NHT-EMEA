@@ -1,8 +1,8 @@
 .. _diyfoundation_lab:
 
---------------------------
-Foundation Practice - HPOC
---------------------------
+----------
+Foundation
+----------
 
 Overview
 ++++++++
@@ -21,8 +21,8 @@ Foundation is used to automate the installation of the hypervisor and Controller
 
 Refer to the Nutanix `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-0:Field-Installation-Guide-v4-0>`_ for additional instruction on configuring your local environment (Oracle VirtualBox, VMware Fusion, etc.) to run your Foundation VM.
 
-Documentation and Downloads
-...........................
+References and Downloads
+........................
 
 - `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-0:Field-Installation-Guide-v4-0>`_ - *Comprehensive Foundation documentation, including steps for local deployment of Foundation VM.*
 - `Foundation Release Notes <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-Rls-Notes-v4-0:Field-Installation-Guide-Rls-Notes-v4-0>`_ - *Fixes, known issues, enhancements, and upgrade information.*

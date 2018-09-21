@@ -1,0 +1,40 @@
+NCC Version  :3.5.0.1-2532387a
+Cluster Id  :30391
+Cluster Name  :POC022
+Cluster Ips  :['10.21.22.29', '10.21.22.30', '10.21.22.31']
+Timestamp  :Thu Sep 20 19:46:07 2018
+
+################################################################################
+SUMMARY RESULT
+################################################################################
+
+Detailed information for lsi_firmware_rev_check:
+Node 10.21.22.30: 
+FAIL: LSI firmware revision is less than the minimum supported revision 0x9000000
+Node 10.21.22.31: 
+FAIL: LSI firmware revision is less than the minimum supported revision 0x9000000
+Node 10.21.22.29: 
+FAIL: LSI firmware revision is less than the minimum supported revision 0x9000000
+Refer to KB 3035 (http://portal.nutanix.com/kb/3035) for details on lsi_firmware_rev_check
+
+Detailed information for auto_support_check:
+Node 10.21.22.29: 
+INFO: SMTP check failed. Unable to send emails.
+Refer to KB 1585 (http://portal.nutanix.com/kb/1585) for details on auto_support_check
+
+Detailed information for dns_server_check:
+Node 10.21.22.30: 
+INFO: Only one name server is configured
+Node 10.21.22.31: 
+INFO: Only one name server is configured
+Node 10.21.22.29: 
+INFO: Only one name server is configured
+Refer to KB 3005 (http://portal.nutanix.com/kb/3005) for details on dns_server_check
++---------------+
+| State | Count |
++---------------+
+| Pass  | 174   |
+| Info  | 2     |
+| Fail  | 1     |
+| Total | 177   |
++---------------+

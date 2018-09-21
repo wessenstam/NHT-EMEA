@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WORKSHOPS=("NHT Foundation Lab" \
+WORKSHOPS=("NHT Labs" \
 "Change Cluster Input File" \
 "Validate Staged Clusters" \
 "Quit")
@@ -38,7 +38,7 @@ function select_workshop {
   do
     case $WORKSHOP in
       "NHT Foundation Lab")
-      PE_CONFIG=stage_nhtfoundation.sh
+      PE_CONFIG=stage_nhtlabs.sh
       break
       ;;
       "Change Cluster Input File")
@@ -72,7 +72,7 @@ function set_workshop {
 
   case ${WORKSHOPS[$((${WORKSHOP_NUM}-1))]} in
     "NHT Foundation Lab")
-    PE_CONFIG=stage_nhtfoundation.sh
+    PE_CONFIG=stage_nhtlabs.sh
     ;;
     *) echo "No one should ever see this. Time to panic.";;
   esac

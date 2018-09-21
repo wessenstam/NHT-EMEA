@@ -1,8 +1,8 @@
 .. _groupfoundation_lab:
 
---------------------------------------
-New Hire Training Group Foundation Lab
---------------------------------------
+----------
+Foundation
+----------
 
 Overview
 ++++++++
@@ -20,10 +20,10 @@ Using the spreadsheet below, locate your **Group Number** and corresponding deta
 
 .. raw:: html
 
-  <iframe src=https://docs.google.com/spreadsheets/d/e/2PACX-1vTLL88KnmhLSlNb0cxEUEr5nJCDd09ZqGk8aSMBFYUl-jWfjqjY9j7sjwSWKEv34GXkzzvLNAHqqcZW/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:l41 style="position: relative; height: 300px; width: 98%; border: none"></iframe>
+  <iframe src=https://docs.google.com/spreadsheets/d/e/2PACX-1vQyI5rZlI4OQ5KbbUmEYXYRKb7zHvmFGQlqBmFqynNc4BNNlzBvgUamtfIdy2AlGLZYektSupV1_72a/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:m41 style="position: relative; height: 500px; width: 100%; border: none"></iframe>
 
-Documentation and Downloads
-...........................
+References and Downloads
+........................
 
 - `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-0:Field-Installation-Guide-v4-0>`_ - *Comprehensive Foundation documentation, including steps for local deployment of Foundation VM.*
 - `Foundation Release Notes <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-Rls-Notes-v4-0:Field-Installation-Guide-Rls-Notes-v4-0>`_ - *Fixes, known issues, enhancements, and upgrade information.*
@@ -79,7 +79,7 @@ For the complete steps used to stage the environment, refer to :ref:`diyfoundati
 Installing Foundation
 +++++++++++++++++++++
 
-Open \https://*<NODE A CVM IP>*:9440 in your browser and log in with the following credentials:
+Open \https://*<NODE D CVM IP>*:9440 in your browser and log in with the following credentials:
 
 - **Username** - admin
 - **Password** - techX2018!
@@ -97,10 +97,10 @@ Fill out the following fields and click **Save**:
 - **Name** - Primary
 - **VLAD ID** - 0
 
-Click **Create Network**. Fill out the following fields and click **Save**:
+Click **Create Network**. Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Save**:
 
 - **Name** - Secondary
-- **VLAD ID** - *<HPOC NUMBER>1* (e.g. POC039 -> 391)
+- **VLAD ID** - *<Secondary VLAN ID>*
 
 .. figure:: images/00.png
 
@@ -148,7 +148,7 @@ Select **eth0** and press **Return**.
 
 .. note:: Use the arrow keys to navigate between menu items.
 
-Replacing the octet(s) that correspond to your HPOC network, fill out the following fields, select **OK** and press **Return**:
+Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond to your HPOC network, fill out the following fields, select **OK** and press **Return**:
 
 - **Use DHCP** - Press **Space** to de-select
 - **Static IP** - 10.21.\ *XYZ*\ .41
@@ -219,7 +219,7 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields for **No
 
   In addition to the IPMI MAC address labels on the back of each node. Watchtower can be used to collect the IPMI MAC addresses of any NX appliance: *\http://watchtower.corp.nutanix.com/factoryData/<Block Serial>/*
 
-Fill out the following fields and click **Next**:
+Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond to your HPOC network, fill out the following fields and click **Next**:
 
 - **Cluster Name** - Test-Cluster
 

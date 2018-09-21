@@ -1,17 +1,21 @@
 .. _groupxray_lab:
 
----------------------------------
-New Hire Training Group X-Ray Lab
----------------------------------
+-----
+X-Ray
+-----
 
 Overview
 ++++++++
 
 .. note::
 
-  Estimated time to complete: **90 Minutes**
+  Estimated time to complete: **60 Minutes**
 
-Foundation is used to automate the installation of the hypervisor and Controller VM on one or more nodes. In this exercise you will practice imaging a physical cluster with Foundation. In order to keep the lab self-contained, you will create a single node "cluster" on which you will deploy your Foundation VM. That Foundation instance will be used to image and create a cluster from the remaining 3 nodes in the Block.
+X-Ray is an automated testing application for virtualized infrastructure solutions. It is capable of running test scenarios end-to-end to evaluate system attributes in real-world use cases. In this exercise you will deploy and configure an X-Ray VM, run X-Ray tests, and analyze results.
+
+As X-Ray powers down hosts for tests that evaluate availability and data integrity, it is best practice to run the X-Ray VM outside of the target cluster. Additionally, the X-Ray VM itself creates a small amount of storage and CPU overhead that could potentially skew results.
+
+For environments where DHCP is unavailable (or there isn't a sufficiently large pool of addresses available), X-Ray supports `Link-local <https://en.wikipedia.org/wiki/Link-local_address>`_ or "Zero Configuration" networking, where the VMs communicate via self-assigned IPv4 addresses. In order to work, all of the VMs (including the X-Ray VM) need to reside on the same Layer 2 network. To use Link-local networking, your X-Ray VM's first NIC (eth0) should be on a network capable of communicating with your cluster. A second NIC (eth1) is added on a network without DHCP.
 
 Cluster Details
 ...............
@@ -20,12 +24,23 @@ Using the spreadsheet below, locate your **Group Number** and corresponding deta
 
 .. raw:: html
 
-  <iframe src=https://docs.google.com/spreadsheets/d/e/2PACX-1vTLL88KnmhLSlNb0cxEUEr5nJCDd09ZqGk8aSMBFYUl-jWfjqjY9j7sjwSWKEv34GXkzzvLNAHqqcZW/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:l41 style="position: relative; height: 300px; width: 98%; border: none"></iframe>
+  <iframe src=https://docs.google.com/spreadsheets/d/e/2PACX-1vQyI5rZlI4OQ5KbbUmEYXYRKb7zHvmFGQlqBmFqynNc4BNNlzBvgUamtfIdy2AlGLZYektSupV1_72a/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:m41 style="position: relative; height: 500px; width: 100%; border: none"></iframe>
+
+References and Downloads
+........................
+
+- `X-Ray Guide <https://portal.nutanix.com/#/page/docs/details?targetId=X-Ray-Guide-v31:X-Ray-Guide-v31>`_ - *X-Ray documentation*
+- `X-Ray Downloads <https://portal.nutanix.com/#/page/static/supportTools>`_ - *Portal location to download the latest X-Ray OVA and QCOW2 images.*
+- `X-Ray Vision as Nutanix Goes Open Source <https://www.nutanix.com/2018/05/09/x-ray-vision-as-nutanix-goes-open-source/>`_ - *Nutanix blog article explaining the impact of open sourcing X-Ray.*
+- `Nutanix GitLab Page <https://gitlab.com/nutanix>`_ - *Public facing repository of opensource X-Ray components including scenarios and Curie engine.*
+- `HCI Performance Testing Made Easy (Part 1) <https://www.n0derunner.com/2018/09/hci-performance-testing-made-easy-part-1/>`_ - *Gary Little blog/video series on using X-Ray.*
+- `HCI Performance Testing Made Easy (Part 2) <https://www.n0derunner.com/2018/09/hci-performance-testing-made-easy-part-2/>`_ - *Gary Little blog/video series on using X-Ray.*
+- `HCI Performance Testing Made Easy (Part 3) <https://www.n0derunner.com/2018/09/hci-performance-testing-made-easy-part-3/>`_ - *Gary Little blog/video series on using X-Ray.*
 
 Configuring Target Cluster Networks
 +++++++++++++++++++++++++++++++++++
 
-Log into **Prism** on your **Test-Cluster** (10.21.\ *XYZ*\ .37).
+Log into **Prism** on your 3-node **POC** cluster (10.21.\ *XYZ*\ .37).
 
 Open **Prism > VM > Table** and click **Network Config**.
 
@@ -40,17 +55,17 @@ Fill out the following fields and click **Save**:
 - **Name** - Primary
 - **VLAD ID** - 0
 
-Click **Create Network**. Fill out the following fields and click **Save**:
+Click **Create Network**. Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Save**:
 
 - **Name** - Secondary
-- **VLAD ID** - *<HPOC NUMBER>1* (e.g. POC039 -> 391)
+- **VLAD ID** - *<Secondary VLAN ID>*
 
 .. figure:: images/1.png
 
 Creating X-Ray VM
 +++++++++++++++++
 
-Log into **Prism** on your **LAB** cluster (10.21.\ *XYZ*\ .32).
+Log into **Prism** on your **NHTLab** 1-node cluster (10.21.\ *XYZ*\ .32).
 
 In **Prism > VM > Table** and click **+ Create VM**.
 
@@ -78,7 +93,7 @@ Select your **XRay** VM and click **Power on**.
 
 .. note::
 
-  At the time of writing, X-Ray 2.3.1 is the latest available version. The URL for the latest X-Ray OVA & QCOW2 images can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/static/supportTools>`_.
+  At the time of writing, X-Ray 3.1 is the latest available version. The URL for the latest X-Ray OVA & QCOW2 images can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/static/supportTools>`_.
 
 Once the VM has started, click **Launch Console**.
 
@@ -86,7 +101,7 @@ Click the **Network** icon in the upper right-hand corner of the XRay VM console
 
 .. note::
 
-  It is critical that you select **eth0** as it is the network adapter assigned to the **Primary** network (you can confirm by comparing the MAC address in the VM console to the MAC address shown in Prism). We will use this network to assign a static IP to the X-Ray VM to access the web interface. We will NOT assign an address to the **eth1** **Secondary** network adapter. This network will be used for zero configuration communication between the X-Ray VM and client VMs. This approach is helpful when DHCP isn't available or the DHCP scope isn't large enough.
+  It is critical that you select the network adapter assigned to the **Primary** network (you can confirm by comparing the MAC address in the VM console to the MAC address shown in Prism). We will use this network to assign a static IP to the X-Ray VM to access the web interface. We will NOT assign an address to the **Secondary** network adapter. This network will be used for zero configuration communication between the X-Ray VM and client VMs. This approach is helpful when DHCP isn't available or the DHCP scope isn't large enough to support X-Ray testing.
 
 .. figure:: images/2.png
 
@@ -96,51 +111,22 @@ Select **Ethernet (eth0)** and click the **Gear Icon**.
 
 Select **IPv4**. Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Apply**:
 
-**Addresses** - Manual
-**Address** - 10.21.\ *XYZ*\ .42
-**Netmask** - 255.255.255.128
-**Gateway** - 10.21.\ *XYZ*\ .1
-**DNS** - 10.21.253.10
+- **Addresses** - Manual
+- **Address** - 10.21.\ *XYZ*\ .42
+- **Netmask** - 255.255.255.128
+- **Gateway** - 10.21.\ *XYZ*\ .1
+- **DNS** - 10.21.253.10
 
 .. figure:: images/4.png
 
-.. note::
-
-  If the **eth0** adapter still shows its original DHCP IP address, use the toggle switch to turn the adapter off and back on.
+Use the toggle switch to turn the **eth0** adapter off and back on to ensure the new IP is applied.
 
 .. raw:: html
 
   <strong><font color="red">Close the XRay VM console. You will use the browser in your Citrix XenDesktop session for the remainder of the lab.</font></strong>
 
-Generating X-Ray Token
-++++++++++++++++++++++
-
-Open https://my.nutanix.com/#/page/xray in a browser and login with your my.nutanix.com credentials.
-
-Enter **Nutanix Sales Enablement** as the **Customer Name** and click **Search**. Select **Nutanix Sales Enablement** from the dropdown menu.
-
-Select any opportunity from the **Opportunity ID** dropdown menu.
-
-Select **Self training on Nutanix** from the **Reason for using X-Ray** dropdown menu.
-
-Click **Generate Token**.
-
-.. figure:: images/5.png
-
-Save your token and click **Done**.
-
-.. figure:: images/6.png
-
 Configuring X-Ray
 +++++++++++++++++
-
-.. note::
-
-  As X-Ray powers down hosts for tests that evaluate availability and data integrity, it is best practice to run the X-Ray VM outside of the target cluster. Additionally, the X-Ray VM itself creates a small amount of storage and CPU overhead that could potentially skew results.
-
-  For environments where DHCP is unavailable, X-Ray supports "Zero Configuration" networking, where the VMs communicate via self-assigned link local IPv4 addresses. In order to work, all of the VMs (including the X-Ray VM) need to reside on the same Layer 2 network. To use Zero Configuration networking, your X-Ray VM's first NIC (eth0) should be on a network capable of communicating with your cluster. A second NIC (eth1) is added on a network without DHCP. No action is required as the X-Ray VM has already been created with both NICs, as seen below.
-
-  **DO NOT ENABLE IPAM ON THE "Secondary" NETWORK!**
 
 Open \https://<*XRAY-VM-IP*>/ in a browser. Enter a password for the local secret score, such as your Prism cluster password, and click **Enter**.
 
@@ -154,26 +140,32 @@ Select **I have read and agree to the terms and conditions** and click **Accept*
 
 .. figure:: images/9.png
 
-Click **Use Token** and enter your previously generated token. Click **Activate > Done**.
+Click **Log in** and specify your my.nutanix.com credentials. Fill out the following fields and click **Generate Token**:
 
-.. figure:: images/10.png
+- **Customer Name** - Nutanix Sales Enablement
+- **Opportunity ID** - New Hire Training
+- **Choose a reason for using X-Ray** - Self training on Nutanix
 
-.. Click **Log in** and specify your my.nutanix.com credentials. Fill out the following fields and click **Activate**:
+.. figure:: images/5.png
 
-  - **Customer Name** - Nutanix Sales Enablement
-  - **Opportunity ID** - Sales Enablement Opportunity
-  - **Choose a reason for using X-Ray** - Self training on Nutanix
+Click **Done**.
+
+.. figure:: images/6.png
+
+.. note::
+
+  If deploying X-Ray in an environment without internet access, tokens can be generated at https://my.nutanix.com/#/page/xray.
 
 Select **Targets** from the navigation bar and click **+ New Target**. Fill out the following fields and click **Next**:
 
-  - **Name** - Test-Cluster
-  - **Manager Type** - Prism
-  - **Power Management Type** - IPMI
-  - **Username** - ADMIN
-  - **Password** - ADMIN
-  - **Prism Address** - *<Nutanix Test-Cluster Virtual IP>*
-  - **Username** - admin
-  - **Password** - *<Nutanix Cluster Admin Password>*
+- **Name** - POC-Cluster
+- **Manager Type** - Prism
+- **Power Management Type** - IPMI
+- **Username** - ADMIN
+- **Password** - ADMIN
+- **Prism Address** - *<3-Node Cluster Virtual IP>*
+- **Username** - admin
+- **Password** - techX2018!
 
 .. figure:: images/11.png
 
@@ -181,6 +173,59 @@ Select **Secondary** under **Network** and click **Next**.
 
 .. figure:: images/12.png
 
-Select **Supermicro** from the **IPMI Type** menu. Review **Node Info** and click **Save**.
+Select **Supermicro** from the **IPMI Type** menu. Review **Node Info** and click **Next**.
 
 .. figure:: images/13.png
+
+Click **Run Validation**.
+
+.. figure:: images/14.png
+
+Click **Check Details** to view validation progress.
+
+.. figure:: images/15.png
+
+Upon successful completion of validation, click **Done**.
+
+.. figure:: images/16.png
+
+Running X-Ray Tests
++++++++++++++++++++
+
+While X-Ray offers many testing options that evaluate critical Day 2+ scenarios, for lack of time, we will utilize a simple microbenchmark test in this exercise.
+
+Select **Tests** from the navigation bar and select **Four Corners Microbenchmark**.
+
+.. figure:: images/17.png
+
+Review the test description, then select your **POC-Cluster** under **Targets** and click **Add to Queue**.
+
+.. figure:: images/18.png
+
+.. note::
+
+  X-Ray can run one test per target at a time. Many tests can be queued for a single target, allowing X-Ray to automatically run through multiple tests without requiring manual intervention. Through automation, X-Ray can drastically decrease the amount of time to conduct a POC.
+
+Select **Results** from the navigation bar and select the **Four Corners Microbenchmark** under **In Progress Tests**.
+
+.. figure:: images/19.png
+
+Click **In progress** for additional details on the running test.
+
+When the test reaches the **Run** phase, log into Prism on your 3-node cluster to monitor VM performance during the test.
+
+.. figure:: images/20.png
+
+.. note::
+
+  High storage latency is expected during the "pre-filling" stage prior to running the target workloads as X-Ray worker VMs are writing sequential 1MB blocks to their disks to ensure the tests do not read only zeroes.
+
+Upon completion of the test, select the **POC-Cluster Four Corners Microbenchmark** now located under **Completed Tests**.
+
+.. figure:: images/21.png
+
+The graphs are interactive, and you can click and drag to zoom into specific data/times on each individual graph. You can zoom out by clicking **Reset Zoom**.
+
+Each dotted blue line represents an event in the test, such as beginning a workload, powering off a node, etc. Clicking the blue dots will provide information about the event.
+
+Clicking the **Actions** drop down menu provides options to view the detailed log data, export the test results, and generate a PDF report.

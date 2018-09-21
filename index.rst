@@ -2,12 +2,20 @@
 
 .. toctree::
   :maxdepth: 2
-  :caption: Labs
+  :caption: NHT Group Labs
   :name: _labs
   :hidden:
 
   groupfoundation/foundation
-  .. xray/xray
+  xray/xray
+  ncc/ncc
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Practice Labs
+  :name: _labs
+  :hidden:
+
   diyfoundation/diyfoundation
 
 .. _getting_started:

@@ -13,6 +13,7 @@ MY_SP_NAME='SP01'
 MY_CONTAINER_NAME='Default'
 MY_IMG_CONTAINER_NAME='Images'
 MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.1.2/Foundation_VM-4.1.2-disk-0.qcow2'
+MY_XRAY_SRC_URL='http://download.nutanix.com/xray/3.1.0/xray-3.1.qcow2'
 
 # Source Nutanix environments (for PATH and other things)
 source /etc/profile.d/nutanix_env.sh
@@ -51,6 +52,20 @@ MY_IMAGE="Foundation"
 retries=1
 my_log "Importing ${MY_IMAGE} image"
 until [[ $(acli image.create ${MY_IMAGE} container="${MY_IMG_CONTAINER_NAME}" image_type=kDiskImage source_url=${MY_FND_SRC_URL} wait=true) =~ "complete" ]]; do
+  let retries++
+  if [ $retries -gt 5 ]; then
+    my_log "${MY_IMAGE} failed to upload after 5 attempts. This cluster may require manual remediation."
+    acli vm.create STAGING-FAILED-${MY_IMAGE}
+    break
+  fi
+  my_log "acli image.create ${MY_IMAGE} FAILED. Retrying upload (${retries} of 5)..."
+  sleep 5
+done
+
+MY_IMAGE="X-Ray"
+retries=1
+my_log "Importing ${MY_IMAGE} image"
+until [[ $(acli image.create ${MY_IMAGE} container="${MY_IMG_CONTAINER_NAME}" image_type=kDiskImage source_url=${MY_XRAY_SRC_URL} wait=true) =~ "complete" ]]; do
   let retries++
   if [ $retries -gt 5 ]; then
     my_log "${MY_IMAGE} failed to upload after 5 attempts. This cluster may require manual remediation."
