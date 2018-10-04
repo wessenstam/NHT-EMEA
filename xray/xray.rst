@@ -229,3 +229,43 @@ The graphs are interactive, and you can click and drag to zoom into specific dat
 Each dotted blue line represents an event in the test, such as beginning a workload, powering off a node, etc. Clicking the blue dots will provide information about the event.
 
 Clicking the **Actions** drop down menu provides options to view the detailed log data, export the test results, and generate a PDF report.
+
+Working with X-Ray Results
+++++++++++++++++++++++++++
+
+As X-Ray is using automation to perform the exact same tests and collect the same metrics on multiple systems/hypervisors, the results can be easily overlaid to compare solutions. In this exercise you will use X-Ray to compare BigData Ingestion test results between Nutanix and a competitor.
+
+The BigData Ingestion test compares the speed at which 1TB of sequential data can be written to a single VM on a cluster, as is common in workloads such as Splunk.
+
+Download the following exported X-Ray test results:
+
+- :download:`Competitor Big Data Ingest Results<xray-big-data-competitor.zip>`
+- :download:`Nutanix Big Data Ingest Results<xray-big-data-nutanix.zip>`
+
+Select :fa:`cog` **> Import Test Results** from the navigation bar.
+
+Click **Choose File** and select the Nutanix test results .zip file previously downloaded. Click **Import**.
+
+.. figure:: images/23.png
+
+Repeat to import the Competitor test results .zip file.
+
+Select **Analyses** from the navigation bar and click **Create Analysis**.
+
+.. figure:: images/24.png
+
+Select the 2 **BigData Ingestion** results and click **Create**.
+
+.. figure:: images/25.png
+
+The resulting charts show the combined metrics for both solutions. In this case we can clearly see that the Nutanix solution is able to sustain a higher, and more consistent, rate of write throughput, resulting in a much faster time to complete ingesting the 1TB of data.
+
+.. figure:: images/26.png
+
+.. note::
+
+  Can you explain **why** the Nutanix solution may produce better results than common HCI competitors?
+
+  Hint! Check out the `OpLog <http://nutanixbible.com/\#anchor-i/o-path-and-cache-67>`_ section of the Nutanix Bible.
+
+To export analysis results for use in proposal documents, etc., click **Actions > Create report**. Multiple analyses can also be selected to generate a combined report with the results from multiple tests, this can be extremely useful for summarizing POC results.
