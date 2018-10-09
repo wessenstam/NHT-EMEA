@@ -37,7 +37,7 @@ function select_workshop {
   select WORKSHOP in "${WORKSHOPS[@]}"
   do
     case $WORKSHOP in
-      "NHT Foundation Lab")
+      "NHT Labs")
       PE_CONFIG=stage_nhtlabs.sh
       break
       ;;

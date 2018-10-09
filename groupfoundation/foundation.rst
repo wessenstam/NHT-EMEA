@@ -251,7 +251,7 @@ Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond t
 
   .. figure:: images/13.png
 
-Download your desired AOS package from http://10.21.22.50/nutanix_installer_package-release-euphrates-5.6.1-stable.tar.gz.
+Download your desired AOS package from http://10.21.22.50/aos/.
 
 By default, Foundation does not have any AOS or hypervisor images. To upload AOS or hypervisor files, click **Manage AOS Files**.
 
