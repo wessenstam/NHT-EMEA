@@ -30,49 +30,35 @@ Getting Started
 
 Welcome to Nutanix New Hire Training! Carefully review the **Overview** section of each lab before proceeding with the exercise.
 
-Cluster Access
-++++++++++++++
+HPOC XenDesktop Access
+++++++++++++++++++++++
+
+.. raw:: html
+
+  <strong><font color="red">The Foundation lab requires uploading a large file (AOS binary) to your Foundation VM, for this reason you NEED to connect to the environment using a virtual desktop.</font></strong><br><br>
 
 .. note::
 
-  The Foundation lab requires uploading a large file to your Foundation VM, for this reason you are strongly encouraged to connect to the environment using a virtual desktop.
+  If you are attending NHT and in a non-SE role (e.g. CSM, Services) you DO NOT have NUTANIXDC.local credentials. Alternate credentials will be provided in class to access the HPOC XenDesktop environment.
 
-The Nutanix Hosted POC environment can be accessed a number of different ways:
+In your browser, log in at https://citrixready.nutanix.com with your **NUTANIXDC.local** credentials. This username should match your Corp AD (Okta) username (first.last).
 
-Citrix XenDesktop
-.................
+The default password is **welcome123** . You will be prompted to change your password.
 
-https://citrixready.nutanix.com - *Accessible via the Citrix Receiver client or HTML5*
+.. image:: images/1.png
 
-**Nutanix Employees** - Use your NUTANIXDC.local credentials
+If the default password fails, you can reset your **NUTANIXDC.local** account password by logging into https://rx.corp.nutanix.com/ (using Okta credentials) and clicking **Reset NutanixDC.Local Password** in the toolbar.
 
-**Non-Employee** - **Username:** POCxxx-User01 (up to POCxxx-User20), **Password:** *<Instructor Provided>*
+.. image:: images/2.png
 
-VMware Horizon View
-...................
+If logon still fails (and you are an SE), contact hostedpoc@nutanix.com to request a **NUTANIXDC.local** account.
 
-https://hostedpoc.nutanix.com - *Accessible via the Horizon View client or HTML5*
+Once logged in to https://citrixready.nutanix.com, select **Desktops** from the toolbar and then launch the **EMPLOYEES** desktop.
 
-**Nutanix Employees** - Use your NUTANIXDC.local credentials
+.. image:: images/3.png
 
-**Partners** - **Username:** POCxxx-User01 (up to POCxxx-User20), **Password:** *<Instructor Provided>*
+If the Citrix client isn't immediately launched, your browser may have downloaded a **.ica** file without opening it. Open the **.ica** file to launch the Citrix client.
 
-Employee Pulse Secure VPN
-..........................
+If you receive a certificate error attempting to connect to your Citrix desktop, download and install the `DigiCert SHA2 Secure Server CA <https://dl.cacerts.digicert.com/DigiCertSHA2SecureServerCA.crt>`_ certificate. Restart your browser and attempt to launch your Citrix desktop again.
 
-https://sslvpn.nutanix.com - Use your CORP credentials
-
-Partner Pulse Secure VPN
-........................
-
-https://lab-vpn.nutanix.com - **Username:** POCxxx-User01 (up to POCxxx-User20), **Password:** *<Instructor Provided>*
-
-Under **Client Application Sessions**, click **Start** to the right of **Pulse Secure** to download the client.
-
-Install and open **Pulse Secure**.
-
-Add a connection:
-
-- **Type** - Policy Secure (UAC) or Connection Server
-- **Name** - HPOC VPN
-- **Server URL** - lab-vpn.nutanix.com
+**You can now proceed with the :ref:`groupfoundation_lab` lab.**

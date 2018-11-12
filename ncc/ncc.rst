@@ -144,7 +144,7 @@ collect_perf
 
 *collect_perf is a utility used to capture performance data from a Nutanix cluster.*
 
-**When would I run Log Collector?**
+**When would I run collect_perf?**
 
 *collect_perf would typically only be run under the guidance of Support or Performance Engineering in supporting a performance issue. This exercise is more about awareness.*
 
