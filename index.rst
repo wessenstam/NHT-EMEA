@@ -41,6 +41,8 @@ HPOC XenDesktop Access
 
   If you are attending NHT and in a non-SE role (e.g. CSM, Services) you DO NOT have NUTANIXDC.local credentials. Alternate credentials will be provided in class to access the HPOC XenDesktop environment.
 
+Download and install the `Citrix Workspace client <https://www.citrix.com/downloads/workspace-app/>`_. Do **NOT** enable Single Sign-On (SSO) during installation.
+
 In your browser, log in at https://citrixready.nutanix.com with your **NUTANIXDC.local** credentials. This username should match your Corp AD (Okta) username (first.last).
 
 The default password is **welcome123**. You will be prompted to change your password.
