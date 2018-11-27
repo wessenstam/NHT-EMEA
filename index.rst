@@ -53,10 +53,6 @@ Launch GlobalProtect and configure **gp.nutanix.com** as the **Portal** address.
 XenDesktop Access
 .................
 
-.. raw:: html
-
-  <strong><font color="red">The Foundation lab requires uploading a large file (AOS binary) to your Foundation VM, for this reason you NEED to connect to the environment using a virtual desktop.</font></strong><br><br>
-
 .. note::
 
   If you are attending NHT and in a non-SE role (e.g. CSM, Services) you DO NOT have NUTANIXDC.local credentials. Alternate credentials will be provided in class to access the HPOC XenDesktop environment.
