@@ -116,11 +116,11 @@ Fill out the following fields and click **Save**:
 - **Image Type** - Disk
 - **Storage Container** - default-container
 - Select **From URL**
-- **Image Source** - http://download.nutanix.com/foundation/foundation-4.0.3/Foundation_VM-4.0.3-disk-0.qcow2
+- **Image Source** - http://download.nutanix.com/foundation/foundation-4.2.1/Foundation_VM-4.2.1-disk-0.qcow2
 
 .. note::
 
-  At the time of writing, Foundation 4.1.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
+  At the time of writing, Foundation 4.2.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
 
   **Unless otherwise directed by support, always use the latest version of Foundation.**
 
@@ -194,28 +194,38 @@ Select **Save & Quit** and press **Return**.
 
 .. figure:: images/6.png
 
-Close the Foundation VM console.
-
 Running Foundation
 ++++++++++++++++++
 
-Open \https://*<Foundation VM IP>*:8000/gui/index.html in your browser to access Foundation.
+From within the Foundation VM console, launch **Nutanix Foundation** from the desktop.
 
 .. note::
 
-  **DO NOT** access the Foundation UI from the Foundation VM console. Close your Foundation VM console and access the Foundation UI via a browser in your Citrix desktop.
+  Foundation can be accessed via any browser at \http://*<Foundation VM IP>*:8000/gui/index.html
 
-On the **Start** page, click **Next**.
+On the **Start** page, make the following selections:
 
-  .. note:: Foundation node/cluster settings can be pre-configured using https://install.nutanix.com and imported from the **Start** page.
-
-Foundation will automatically discover any hosts in the same IPv6 Link Local broadcast domain that is not already part of a cluster.
-
-.. figure:: images/8.png
+- **Select which network to use on this computer** - eth0
+- **Select your hardware platform** - Autodetect
+- **Is your switch doing link aggregation?** - No
 
 .. note::
 
-  When transferring POC assets in the field, it's not uncommon to receive a cluster that wasn't properly destroyed at the conclusion of the previous POC. In this lab, the nodes should be automatically discovered. See :ref:`foundation_lab` for steps on manually adding nodes based on IPMI MAC addresses.
+  Foundation node/cluster settings can optionally be pre-configured using https://install.nutanix.com and imported from the **Start** page. This will not be done as part of the lab.
+
+.. figure:: images/7.png
+
+Click **Next**.
+
+Click **Click here** to manually specify the MAC address of your assigned node.
+
+.. note::
+
+  Foundation will automatically discover any hosts in the same IPv6 Link Local broadcast domain that is not already part of a cluster.
+
+  .. figure:: images/8.png
+
+  When transferring POC assets in the field, it's not uncommon to receive a cluster that wasn't properly destroyed at the conclusion of the previous POC. In this lab, the nodes are already part of existing clusters and will not be discovered.
 
 Replacing the octet(s) that correspond to your HPOC network, fill out the following fields and select **Next**:
 
@@ -248,7 +258,7 @@ Fill out the following fields and click **Next**:
 - **Netmask of Every Hypervisor and CVM** - 255.255.255.128
 - **Gateway of Every IPMI** - 10.21.\ *XYZ*\ .1
 - **Gateway of Every Hypervisor and CVM** - 10.21.\ *XYZ*\ .1
-- **Memory Allocation of Every CVM** - 32
+- **vRAM Allocation for Every CVM, in Gigabytes** - 32
 
   *Refer to AOS Release Notes > Controller VM Memory Configurations for guidance on CVM Memory Allocation.*
 
@@ -265,6 +275,10 @@ Download your desired AOS package from the `Nutanix Portal <https://portal.nutan
 By default, Foundation does not have any AOS or hypervisor images. To upload AOS or hypervisor files, click **Manage AOS Files**.
 
 .. figure:: images/14.png
+
+.. note::
+
+  If downloading the AOS package within the Foundation VM, the .tar.gz package can also be moved to ~/foundation/nos rather than uploaded to Foundation through the web UI. After moving the package into the proper directory, click **Manage AOS Files > Refresh**.
 
 Click **+ Add > Choose File**. Select your downloaded *nutanix_installer_package-release-\*.tar.gz* file and click **Upload**.
 

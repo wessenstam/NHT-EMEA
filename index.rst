@@ -30,8 +30,28 @@ Getting Started
 
 Welcome to Nutanix New Hire Training! Carefully review the **Overview** section of each lab before proceeding with the exercise.
 
-HPOC XenDesktop Access
-++++++++++++++++++++++
+Cluster Access
+++++++++++++++
+
+The Nutanix Hosted POC environment can only be accessed via VPN or virtual desktop. **It is recommended that the VPN be used to complete these labs.**
+
+GlobalProtect VPN Access
+........................
+
+Browse to https://gp.nutanix.com.
+
+Log in with your OKTA credentials.
+
+Download and install the appropriate GlobalProtect agent for your operating system.
+
+Launch GlobalProtect and configure **gp.nutanix.com** as the **Portal** address.
+
+.. note::
+
+  You can also leverage the legacy VPN solution, Pulse Secure. Connect and download the client from https://sslvpn.nutanix.com.
+
+XenDesktop Access
+.................
 
 .. raw:: html
 
@@ -62,5 +82,3 @@ Once logged in to https://citrixready.nutanix.com, select **Desktops** from the 
 If the Citrix client isn't immediately launched, your browser may have downloaded a **.ica** file without opening it. Open the **.ica** file to launch the Citrix client.
 
 If you receive a certificate error attempting to connect to your Citrix desktop, download and install the `DigiCert SHA2 Secure Server CA <https://dl.cacerts.digicert.com/DigiCertSHA2SecureServerCA.crt>`_ certificate. Restart your browser and attempt to launch your Citrix desktop again.
-
-**You can now proceed with the** :ref:`groupfoundation_lab` **lab.**

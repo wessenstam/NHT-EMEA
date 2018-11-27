@@ -169,28 +169,38 @@ Select **Save & Quit** and press **Return**.
 
 .. figure:: images/6.png
 
-.. raw:: html
-
-  <br><strong><font color="red">Close the Foundation VM console. You will use the browser in your Citrix XenDesktop session for the remainder of the lab.</font></strong>
-
 Running Foundation
 ++++++++++++++++++
 
-Open \http://*<Foundation VM IP>*:8000/gui/index.html in your browser to access Foundation.
+From within the Foundation VM console, launch **Nutanix Foundation** from the desktop.
 
 .. note::
 
-  **DO NOT** access the Foundation UI from the Foundation VM console. Close your Foundation VM console and access the Foundation UI via a browser in your Citrix desktop.
+  Foundation can be accessed via any browser at \http://*<Foundation VM IP>*:8000/gui/index.html
 
-On the **Start** page, click **Next**.
+On the **Start** page, make the following selections:
 
-.. note:: Foundation node/cluster settings can be pre-configured using https://install.nutanix.com and imported from the **Start** page.
+- **Select which network to use on this computer** - eth0
+- **Select your hardware platform** - Autodetect
+- **Is your switch doing link aggregation?** - No
+
+.. note::
+
+  Foundation node/cluster settings can optionally be pre-configured using https://install.nutanix.com and imported from the **Start** page. This will not be done as part of the lab.
+
+.. figure:: images/7.png
+
+Click **Next**.
 
 Click **Click here** to manually specify the MAC address of your assigned node.
 
 .. note::
 
-  Foundation will automatically discover any hosts in the same IPv6 Link Local broadcast domain that is not already part of a cluster. When transferring POC assets in the field, it's not uncommon to receive a cluster that wasn't properly destroyed at the conclusion of the previous POC. In this lab, the nodes are already part of existing clusters and will not be discovered.
+  Foundation will automatically discover any hosts in the same IPv6 Link Local broadcast domain that is not already part of a cluster.
+
+  .. figure:: images/7b.png
+
+  When transferring POC assets in the field, it's not uncommon to receive a cluster that wasn't properly destroyed at the conclusion of the previous POC. In this lab, the nodes are already part of existing clusters and will not be discovered.
 
 Fill out the following fields and click **Add Nodes**:
 
@@ -198,7 +208,7 @@ Fill out the following fields and click **Add Nodes**:
 - **Nodes per Block** - 3
 - Select **I will provide the IPMI MACs**
 
-.. figure:: images/7.png
+.. figure:: images/8.png
 
 Using the `Cluster Details`_ spreadsheet, fill out the following fields for **Nodes A, B, and C ONLY** and click **Next**:
 
@@ -213,11 +223,13 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields for **No
 
 .. note::
 
-  Use **Tools > Range Autofill** to quickly specify Node IPs.
+  Use **Tools > Range Autofill** to quickly specify Node IPs. Specify the first IP in the field at the top of the table to provide enumerated values for the entire column.
 
 .. note::
 
   In addition to the IPMI MAC address labels on the back of each node. Watchtower can be used to collect the IPMI MAC addresses of any NX appliance: *\http://watchtower.corp.nutanix.com/factoryData/<Block Serial>/*
+
+  Watchtower requires VPN connection.
 
 Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond to your HPOC network, fill out the following fields and click **Next**:
 
@@ -231,7 +243,7 @@ Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond t
 - **Cluster Virtual IP** - 10.21.\ *XYZ*\ .37
 
   *Cluster Virtual IP needs to be within the same subnet as the CVM/hypervisor.*
-- **Cluster Redundancy Factor** - 2
+- **Cluster Redundancy Factor** - RF2
 
   *Redundancy Factor 2 requires a minimum of 3 nodes, Redundancy Factor 3 requires a minimum of 5 nodes. Cluster creation during Foundation will fail if the appropriate minimum is not met.*
 - **Timezone of Every Hypervisor and CVM** - America/Los_Angeles
@@ -239,7 +251,7 @@ Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond t
 - **Netmask of Every Hypervisor and CVM** - 255.255.255.128
 - **Gateway of Every IPMI** - 10.21.\ *XYZ*\ .1
 - **Gateway of Every Hypervisor and CVM** - 10.21.\ *XYZ*\ .1
-- **Memory Allocation of Every CVM** - 32
+- **vRAM Allocation for Every CVM, in Gigabytes** - 32
 
   *Refer to AOS Release Notes > Controller VM Memory Configurations for guidance on CVM Memory Allocation.*
 
@@ -260,6 +272,10 @@ By default, Foundation does not have any AOS or hypervisor images. To upload AOS
 Click **+ Add > Choose File**. Select your downloaded *nutanix_installer_package-release-\*.tar.gz* file and click **Upload**.
 
 .. figure:: images/15.png
+
+.. note::
+
+  If downloading the AOS package within the Foundation VM, the .tar.gz package can also be moved to ~/foundation/nos rather than uploaded to Foundation through the web UI. After moving the package into the proper directory, click **Manage AOS Files > Refresh**.
 
 After the upload completes, click **Close**. Click **Next**.
 
@@ -301,7 +317,9 @@ When all CVMs are ready, Foundation initiates the cluster creation process.
 
 .. figure:: images/20.png
 
-Open \https://*<Cluster Virtual IP>*:9440 in your browser and log in with the following credentials:
+**Close the Foundation VM Console.**
+
+Open \https://*<Cluster Virtual IP>*:9440 in your local browser and log in with the following credentials:
 
 - **Username** - admin
 - **Password** - Nutanix/4u
