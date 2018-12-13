@@ -203,19 +203,11 @@ From within the Foundation VM console, launch **Nutanix Foundation** from the de
 
   Foundation can be accessed via any browser at \http://*<Foundation VM IP>*:8000/gui/index.html
 
-On the **Start** page, make the following selections:
-
-- **Select which network to use on this computer** - eth0
-- **Select your hardware platform** - Autodetect
-- **Is your switch doing link aggregation?** - No
+On the **Start** page, click **Next**.
 
 .. note::
 
-  Foundation node/cluster settings can optionally be pre-configured using https://install.nutanix.com and imported from the **Start** page. This will not be done as part of the lab.
-
-.. figure:: images/7.png
-
-Click **Next**.
+  Foundation node/cluster settings can optionally be pre-configured using https://install.nutanix.com and imported from the **Start** page.
 
 Click **Click here** to manually specify the MAC address of your assigned node.
 
