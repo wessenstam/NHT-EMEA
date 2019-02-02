@@ -16,8 +16,8 @@ Foundation is used to automate the installation of the hypervisor and Controller
 Documentation and Downloads
 ...........................
 
-- `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-0:Field-Installation-Guide-v4-0>`_ - *Comprehensive Foundation documentation, including steps for local deployment of Foundation VM.*
-- `Foundation Release Notes <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-Rls-Notes-v4-0:Field-Installation-Guide-Rls-Notes-v4-0>`_ - *Fixes, known issues, enhancements, and upgrade information.*
+- `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-3:Field-Installation-Guide-v4-3>`_ - *Comprehensive Foundation documentation, including steps for local deployment of Foundation VM.*
+- `Foundation Release Notes <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-Rls-Notes-v4-3:Field-Installation-Guide-Rls-Notes-v4-3>`_ - *Fixes, known issues, enhancements, and upgrade information.*
 - `NX Hardware System Specifications <https://portal.nutanix.com/#/page/docs/list?type=hardware>`_ - *Helpful for determining LAN/IPMI/Shared ports for different hardware platforms.*
 - `Foundation binaries and related files <https://portal.nutanix.com/#/page/foundation>`_ - *Downloads for baremetal Foundation, CVM Foundation, and ISO whitelist.*
 - `KB2430 <https://portal.nutanix.com/#/page/kbs/details?targetId=kA032000000TT1HCAW>`_ - *Internal Only KB detailing how to download old versions of AOS/AHV that are no longer available on Nutanix Portal.*
@@ -25,11 +25,13 @@ Documentation and Downloads
 Cluster Details
 ...............
 
-Using the spreadsheet below, locate your **Student Number** and corresponding details for your assigned node.
+Using the spreadsheet below, locate your **Group Number** and corresponding details for your assigned node.
 
 .. raw:: html
 
-  <iframe src=https://docs.google.com/spreadsheets/d/e/2PACX-1vQyI5rZlI4OQ5KbbUmEYXYRKb7zHvmFGQlqBmFqynNc4BNNlzBvgUamtfIdy2AlGLZYektSupV1_72a/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:l41 style="position: relative; height: 300px; width: 98%; border: none"></iframe>
+  <iframe src=https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:l41 style="position: relative; height: 300px; width: 98%; border: none"></iframe>
+
+If you find it more convenient, you can open the table in a new tab `here <https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml>`_.
 
 Cabling Your Hardware
 +++++++++++++++++++++
@@ -62,7 +64,7 @@ Refer to the appropriate `manufacturer's hardware documentation <https://portal.
 Installing Foundation
 +++++++++++++++++++++
 
-Foundation is distributed as a VM image that can be run on multiple platforms, including AHV, VMware ESXi, VMware Workstation/Fusion, and Oracle VirtualBox. When deploying a local instance of the Foundation VM, refer to the `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-0:Field-Installation-Guide-v4-0>`_ for direction on virtual network configuration. In general, the VM wants to be configured with a **Bridged** network connection and configured with an IP in the same subnet as the planned IP scheme for CVM/hypervisor of the cluster being imaged.
+Foundation is distributed as a VM image that can be run on multiple platforms, including AHV, VMware ESXi, VMware Workstation/Fusion, and Oracle VirtualBox. When deploying a local instance of the Foundation VM, refer to the `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-3:Field-Installation-Guide-v4-3>`_ for direction on virtual network configuration. In general, the VM wants to be configured with a **Bridged** network connection and configured with an IP in the same subnet as the planned IP scheme for CVM/hypervisor of the cluster being imaged.
 
 .. note::
 

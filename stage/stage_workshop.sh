@@ -16,7 +16,7 @@ function send_file {
 }
 
 function acli {
-	remote_exec /usr/local/nutanix/bin/acli "$@"
+  remote_exec /usr/local/nutanix/bin/acli "$@"
 }
 
 # Get list of clusters from user
@@ -128,11 +128,11 @@ function validate_clusters {
 function usage {
   cat << EOF
 
-Interactive Usage:        stage_workshop
-Non-interactive Usage:    stage_workshop -f cluster_list_file -w workshop_number
+  Interactive Usage:        stage_workshop
+  Non-interactive Usage:    stage_workshop -f cluster_list_file -w workshop_number
 
-Available Workshops:
-1) NHT Foundation Lab
+  Available Workshops:
+  1) NHT Foundation Lab
 
 EOF
 exit

@@ -24,8 +24,8 @@ Refer to the Nutanix `Field Installation Guide <https://portal.nutanix.com/#/pag
 References and Downloads
 ........................
 
-- `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-0:Field-Installation-Guide-v4-0>`_ - *Comprehensive Foundation documentation, including steps for local deployment of Foundation VM.*
-- `Foundation Release Notes <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-Rls-Notes-v4-0:Field-Installation-Guide-Rls-Notes-v4-0>`_ - *Fixes, known issues, enhancements, and upgrade information.*
+- `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-3:Field-Installation-Guide-v4-3>`_ - *Comprehensive Foundation documentation, including steps for local deployment of Foundation VM.*
+- `Foundation Release Notes <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-Rls-Notes-v4-3:Field-Installation-Guide-Rls-Notes-v4-3>`_ - *Fixes, known issues, enhancements, and upgrade information.*
 - `NX Hardware System Specifications <https://portal.nutanix.com/#/page/docs/list?type=hardware>`_ - *Helpful for determining LAN/IPMI/Shared ports for different hardware platforms.*
 - `Foundation binaries and related files <https://portal.nutanix.com/#/page/foundation>`_ - *Downloads for baremetal Foundation, CVM Foundation, and ISO whitelist.*
 - `KB2430 <https://portal.nutanix.com/#/page/kbs/details?targetId=kA032000000TT1HCAW>`_ - *Internal Only KB detailing how to download old versions of AOS/AHV that are no longer available on Nutanix Portal.*
@@ -86,7 +86,7 @@ Replacing the **Node A CVM IP**, execute the following to manually create the cl
 
 .. code-block:: bash
 
-  cluster --cluster_name=FoundationLab --dns_servers=10.21.253.10 --ntp_servers=10.21.253.10 --svm_ips=<NODE A CVM IP> create
+  cluster --cluster_name=FoundationLab --dns_servers=10.42.196.10 --ntp_servers=10.42.196.10 --svm_ips=<NODE A CVM IP> create
 
 .. note::
 
@@ -116,11 +116,11 @@ Fill out the following fields and click **Save**:
 - **Image Type** - Disk
 - **Storage Container** - default-container
 - Select **From URL**
-- **Image Source** - http://download.nutanix.com/foundation/foundation-4.2.1/Foundation_VM-4.2.1-disk-0.qcow2
+- **Image Source** - http://download.nutanix.com/foundation/foundation-4.3.1/Foundation_VM-4.3.1-disk-0.qcow2
 
 .. note::
 
-  At the time of writing, Foundation 4.2.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
+  At the time of writing, Foundation 4.3.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
 
   **Unless otherwise directed by support, always use the latest version of Foundation.**
 
@@ -176,9 +176,9 @@ Select **eth0** and press **Return**.
 Replacing the octet(s) that correspond to your HPOC network, fill out the following fields, select **OK** and press **Return**:
 
 - **Use DHCP** - Press **Space** to de-select
-- **Static IP** - 10.21.\ *XYZ*\ .41
+- **Static IP** - 10.42.\ *XYZ*\ .41
 - **Netmask** - 255.255.255.128
-- **Gateway** - 10.21.\ *XYZ*\ .1
+- **Gateway** - 10.42.\ *XYZ*\ .1
 
 .. figure:: images/4.png
 
@@ -203,64 +203,64 @@ From within the Foundation VM console, launch **Nutanix Foundation** from the de
 
   Foundation can be accessed via any browser at \http://*<Foundation VM IP>*:8000/gui/index.html
 
-On the **Start** page, click **Next**.
+On the **Start** page, fill out the following fields, replacing the octet(s) that correspond to your HPOC network:
+
+- **Select which network to use for this installer** - eth0
+- **Select your hardware platform** - Nutanix
+- **Will your production switch do link aggregation?** - No
+- **Netmask of Every Host and CVM** - 255.255.255.128
+- **Gateway of Every Host and CVM** - 10.42.\ *XYZ*\ .1
+- **Netmask of Every IPMI** - 255.255.255.128
+- **Gateway of Every IPMI** - 10.42.\ *XYZ*\ .1
 
 .. note::
 
-  Foundation node/cluster settings can optionally be pre-configured using https://install.nutanix.com and imported from the **Start** page.
-
-Click **Click here** to manually specify the MAC address of your assigned node.
+  Foundation node/cluster settings can optionally be pre-configured using https://install.nutanix.com and imported from the **Start** page. This will not be done as part of the lab.
 
 .. note::
 
-  Foundation will automatically discover any hosts in the same IPv6 Link Local broadcast domain that is not already part of a cluster.
+  When imaging a cluster with Foundation, the CVMs and hypervisor management IP addresses must be in the same subnet. IPMI IP addresses can be in the same, or different, subnet. If IPMI will not be in the same subnet as CVM/hypervisor, Foundation can use different IP addresses for IPMI and CVM/hypervisor while on a flat, L2 network by clicking **Assign two IP addresses to this installer**.
 
-  .. figure:: images/8.png
+Click **Next**.
 
-  When transferring POC assets in the field, it's not uncommon to receive a cluster that wasn't properly destroyed at the conclusion of the previous POC. In this lab, the nodes are already part of existing clusters and will not be discovered.
+As the remaining nodes do not currently belong to a cluster and are on the same L2 IPv6 broadcast domain as Node A, Nodes B, C, and D will be automatically discovered.
 
 Replacing the octet(s) that correspond to your HPOC network, fill out the following fields and select **Next**:
 
-- **IPMI IP** - 10.21.\ *XYZ*\ .34
-- **Hypervisor IP** - 10.21.\ *XYZ*\ .26
-- **CVM IP** - 10.21.\ *XYZ*\ .30
+- **IPMI IP** - 10.42.\ *XYZ*\ .34
+- **Hypervisor IP** - 10.42.\ *XYZ*\ .26
+- **CVM IP** - 10.42.\ *XYZ*\ .30
 - **Node B Hypervisor Hostname** - POC\ *XYZ*\ -2
 - **Node C Hypervisor Hostname** - POC\ *XYZ*\ -3
 - **Node D Hypervisor Hostname** - POC\ *XYZ*\ -4
 
 .. figure:: images/10.png
 
+.. note::
+
+  Use **Tools > Range Autofill** to quickly specify Node IPs. Specify the first IP in the field at the top of the table to provide enumerated values for the entire column.
+
 Fill out the following fields and click **Next**:
 
 - **Cluster Name** - Test-Cluster
 
   *Cluster Name is a "friendly" name that can be easily changed post-installation. It is common to create a DNS A record of the Cluster Name that points to the Cluster Virtual IP.*
-- **NTP Servers of Every Hypervisor and CVM** - 10.21.253.10
-- **DNS Servers of Every Hypervisor and CVM** - 10.21.253.10
+- **Timezone of Every CVM** - America/Los_Angeles
+- **Cluster Redundancy Factor** - RF2
 
-  *DNS and NTP servers should be captured as part of install planning with the customer.*
+  *Redundancy Factor 2 requires a minimum of 3 nodes, Redundancy Factor 3 requires a minimum of 5 nodes. Cluster creation during Foundation will fail if the appropriate minimum is not met.*
 - **Cluster Virtual IP** - 10.21.\ *XYZ*\ .37
 
   *Cluster Virtual IP needs to be within the same subnet as the CVM/hypervisor.*
-- **Cluster Redundancy Factor** - 2
+- **DNS Servers of Every CVM and Host** - 10.42.196.10
+- **NTP Servers of Every CVM** - 10.42.196.10
 
-  *Redundancy Factor 2 requires a minimum of 3 nodes, Redundancy Factor 3 requires a minimum of 5 nodes. Cluster creation during Foundation will fail if the appropriate minimum is not met.*
-- **Timezone of Every Hypervisor and CVM** - America/Los_Angeles
-- **Netmask of Every IPMI** - 255.255.255.128
-- **Netmask of Every Hypervisor and CVM** - 255.255.255.128
-- **Gateway of Every IPMI** - 10.21.\ *XYZ*\ .1
-- **Gateway of Every Hypervisor and CVM** - 10.21.\ *XYZ*\ .1
+  *DNS and NTP servers should be captured as part of install planning with the customer.*
 - **vRAM Allocation for Every CVM, in Gigabytes** - 32
 
   *Refer to AOS Release Notes > Controller VM Memory Configurations for guidance on CVM Memory Allocation.*
 
 .. figure:: images/11.png
-
-.. note::
-
-  When imaging a cluster with Foundation, the CVMs and hypervisor management IP addresses must be in the same subnet. IPMI IP addresses can be in the same, or different, subnet. If IPMI will not be in the same subnet as CVM/hypervisor, Foundation can be configured to use different IP addresses for IPMI and CVM/hypervisor while on a flat, L2 network. Be careful to avoid duplicate IP address when specifying the **IP of the Interface for the Hypervisor-CVM Subnet**.
-
-  .. figure:: images/13.png
 
 Download your desired AOS package from the `Nutanix Portal <https://portal.nutanix.com/#/page/releases/nosDetails>`_.
 

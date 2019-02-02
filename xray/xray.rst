@@ -24,12 +24,14 @@ Using the spreadsheet below, locate your **Group Number** and corresponding deta
 
 .. raw:: html
 
-  <iframe src=https://docs.google.com/spreadsheets/d/e/2PACX-1vQyI5rZlI4OQ5KbbUmEYXYRKb7zHvmFGQlqBmFqynNc4BNNlzBvgUamtfIdy2AlGLZYektSupV1_72a/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:m41 style="position: relative; height: 500px; width: 100%; border: none"></iframe>
+  <iframe src=https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:l41 style="position: relative; height: 300px; width: 98%; border: none"></iframe>
+
+If you find it more convenient, you can open the table in a new tab `here <https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml>`_.
 
 References and Downloads
 ........................
 
-- `X-Ray Guide <https://portal.nutanix.com/#/page/docs/details?targetId=X-Ray-Guide-v31:X-Ray-Guide-v31>`_ - *X-Ray documentation*
+- `X-Ray Guide <https://portal.nutanix.com/#/page/docs/details?targetId=X-Ray-Guide-v33:X-Ray-Guide-v33>`_ - *X-Ray documentation*
 - `X-Ray Downloads <https://portal.nutanix.com/#/page/static/supportTools>`_ - *Portal location to download the latest X-Ray OVA and QCOW2 images.*
 - `X-Ray Vision as Nutanix Goes Open Source <https://www.nutanix.com/2018/05/09/x-ray-vision-as-nutanix-goes-open-source/>`_ - *Nutanix blog article explaining the impact of open sourcing X-Ray.*
 - `Nutanix GitLab Page <https://gitlab.com/nutanix>`_ - *Public facing repository of opensource X-Ray components including scenarios and Curie engine.*
@@ -40,7 +42,7 @@ References and Downloads
 Configuring Target Cluster Networks
 +++++++++++++++++++++++++++++++++++
 
-Log into **Prism** on your 3-node **POC** cluster (10.21.\ *XYZ*\ .37).
+Log into **Prism** on your 3-node **POC** cluster (10.42.\ *XYZ*\ .37).
 
 Open **Prism > VM > Table** and click **Network Config**.
 
@@ -65,7 +67,7 @@ Click **Create Network**. Using the `Cluster Details`_ spreadsheet, fill out the
 Creating X-Ray VM
 +++++++++++++++++
 
-Log into **Prism** on your **NHTLab** 1-node cluster (10.21.\ *XYZ*\ .32).
+Log into **Prism** on your **NHTLab** 1-node cluster (10.42.\ *XYZ*\ .32).
 
 In **Prism > VM > Table** and click **+ Create VM**.
 
@@ -93,7 +95,7 @@ Select your **XRay** VM and click **Power on**.
 
 .. note::
 
-  At the time of writing, X-Ray 3.1 is the latest available version. The URL for the latest X-Ray OVA & QCOW2 images can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/static/supportTools>`_.
+  At the time of writing, X-Ray 3.3 is the latest available version. The URL for the latest X-Ray OVA & QCOW2 images can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/static/supportTools>`_.
 
 Once the VM has started, click **Launch Console**.
 
@@ -112,10 +114,10 @@ Select **Ethernet (eth0)** and click the **Gear Icon**.
 Select **IPv4**. Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Apply**:
 
 - **Addresses** - Manual
-- **Address** - 10.21.\ *XYZ*\ .42
+- **Address** - 10.42.\ *XYZ*\ .42
 - **Netmask** - 255.255.255.128
-- **Gateway** - 10.21.\ *XYZ*\ .1
-- **DNS** - 10.21.253.10
+- **Gateway** - 10.42.\ *XYZ*\ .1
+- **DNS** - 10.42.196.10
 
 .. figure:: images/4.png
 
@@ -123,7 +125,7 @@ Use the toggle switch to turn the **eth0** adapter off and back on to ensure the
 
 .. raw:: html
 
-  <strong><font color="red">Close the XRay VM console. You will use the browser in your Citrix XenDesktop session for the remainder of the lab.</font></strong>
+  <strong><font color="red">Close the XRay VM console.</font></strong>
 
 Configuring X-Ray
 +++++++++++++++++
@@ -136,11 +138,7 @@ Select **I have read and agree to the terms and conditions** and click **Accept*
 
 .. figure:: images/8.png
 
-Select **I have read and agree to the terms and conditions** and click **Accept**.
-
-.. figure:: images/9.png
-
-Click **Log in** and specify your my.nutanix.com credentials. Fill out the following fields and click **Generate Token**:
+Click **My Nutanix Login** and specify your my.nutanix.com credentials. Fill out the following fields and click **Generate Token**:
 
 - **Customer Name** - Nutanix Sales Enablement
 - **Opportunity ID** - New Hire Training
@@ -158,20 +156,22 @@ Click **Done**.
 
 Select **Targets** from the navigation bar and click **+ New Target**. Fill out the following fields and click **Next**:
 
-- **Name** - POC-Cluster
+- **Name** - *<3-Node Cluster Name>*
 - **Manager Type** - Prism
 - **Power Management Type** - IPMI
 - **Username** - ADMIN
 - **Password** - ADMIN
 - **Prism Address** - *<3-Node Cluster Virtual IP>*
 - **Username** - admin
-- **Password** - techX2018!
+- **Password** - techX2019!
 
 .. figure:: images/11.png
 
 Select **Secondary** under **Network** and click **Next**.
 
 .. figure:: images/12.png
+
+This will provision any X-Ray worker VMs on the target cluster using our VLAN without DHCP for zero configuration networking between worker VMs and the X-Ray VM.
 
 Select **Supermicro** from the **IPMI Type** menu. Review **Node Info** and click **Next**.
 
@@ -266,6 +266,6 @@ The resulting charts show the combined metrics for both solutions. In this case 
 
   Can you explain **why** the Nutanix solution may produce better results than common HCI competitors?
 
-  Hint! Check out the `OpLog <http://nutanixbible.com/\#anchor-i/o-path-and-cache-67>`_ section of the Nutanix Bible.
+  Hint! Check out the `OpLog <https://nutanixbible.com/#anchor-book-of-acropolis-i/o-path-and-cache>`_ section of the Nutanix Bible.
 
 To export analysis results for use in proposal documents, etc., click **Actions > Create report**. Multiple analyses can also be selected to generate a combined report with the results from multiple tests, this can be extremely useful for summarizing POC results.

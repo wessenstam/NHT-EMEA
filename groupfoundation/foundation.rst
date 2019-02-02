@@ -16,17 +16,19 @@ Foundation is used to automate the installation of the hypervisor and Controller
 Cluster Details
 ...............
 
-Using the spreadsheet below, locate your **Group Number** and corresponding details for your group's assigned cluster.
+Using the spreadsheet below, locate your **Group Number** and corresponding details for your assigned cluster.
 
 .. raw:: html
 
-  <iframe src=https://docs.google.com/spreadsheets/d/e/2PACX-1vQyI5rZlI4OQ5KbbUmEYXYRKb7zHvmFGQlqBmFqynNc4BNNlzBvgUamtfIdy2AlGLZYektSupV1_72a/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:m41 style="position: relative; height: 500px; width: 100%; border: none"></iframe>
+  <iframe src=https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:l41 style="position: relative; height: 300px; width: 98%; border: none"></iframe>
+
+If you find it more convenient, you can open the table in a new tab `here <https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml>`_.
 
 References and Downloads
 ........................
 
-- `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-0:Field-Installation-Guide-v4-0>`_ - *Comprehensive Foundation documentation, including steps for local deployment of Foundation VM.*
-- `Foundation Release Notes <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-Rls-Notes-v4-0:Field-Installation-Guide-Rls-Notes-v4-0>`_ - *Fixes, known issues, enhancements, and upgrade information.*
+- `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-3:Field-Installation-Guide-v4-3>`_ - *Comprehensive Foundation documentation, including steps for local deployment of Foundation VM.*
+- `Foundation Release Notes <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-Rls-Notes-v4-3:Field-Installation-Guide-Rls-Notes-v4-3>`_ - *Fixes, known issues, enhancements, and upgrade information.*
 - `NX Hardware System Specifications <https://portal.nutanix.com/#/page/docs/list?type=hardware>`_ - *Helpful for determining LAN/IPMI/Shared ports for different hardware platforms.*
 - `Foundation binaries and related files <https://portal.nutanix.com/#/page/foundation>`_ - *Downloads for baremetal Foundation, CVM Foundation, and ISO whitelist.*
 - `KB2430 <https://portal.nutanix.com/#/page/kbs/details?targetId=kA032000000TT1HCAW>`_ - *Internal Only KB detailing how to download old versions of AOS/AHV that are no longer available on Nutanix Portal.*
@@ -82,7 +84,7 @@ Installing Foundation
 Open \https://*<NODE D CVM IP>*:9440 in your browser and log in with the following credentials:
 
 - **Username** - admin
-- **Password** - techX2018!
+- **Password** - techX2019!
 
 Open **Prism > VM > Table** and click **Network Config**.
 
@@ -126,7 +128,7 @@ Select your **Foundation** VM and click **Power on**.
 
 .. note::
 
-  At the time of writing, Foundation 4.1.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
+  At the time of writing, Foundation 4.3.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
 
   **Unless otherwise directed by support, always use the latest version of Foundation.**
 
@@ -151,9 +153,9 @@ Select **eth0** and press **Return**.
 Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond to your HPOC network, fill out the following fields, select **OK** and press **Return**:
 
 - **Use DHCP** - Press **Space** to de-select
-- **Static IP** - 10.21.\ *XYZ*\ .41
+- **Static IP** - *<Foundation VM IP>*
 - **Netmask** - 255.255.255.128
-- **Gateway** - 10.21.\ *XYZ*\ .1
+- **Gateway** - *<Gateway IP>*
 
 .. figure:: images/4.png
 
@@ -184,13 +186,29 @@ If prompted to upgrade, click **Remind Me Later**.
 
   For physical deployments ensure you are using the latest version of Foundation. Any available upgrades are skipped for the lab due to time constraints.
 
-On the **Start** page, click **Next**.
+On the **Start** page, fill out the following fields:
+
+- **Select which network to use for this installer** - eth0
+- **Select your hardware platform** - Nutanix
+- **Will your production switch do link aggregation?** - No
+- **Netmask of Every Host and CVM** - 255.255.255.128
+- **Gateway of Every Host and CVM** - 10.42.\ *XYZ*\ .1
+- **Netmask of Every IPMI** - 255.255.255.128
+- **Gateway of Every IPMI** - 10.42.\ *XYZ*\ .1
+
+.. figure:: images/7.png
 
 .. note::
 
   Foundation node/cluster settings can optionally be pre-configured using https://install.nutanix.com and imported from the **Start** page. This will not be done as part of the lab.
 
-Click **Click here** to manually specify the MAC address of your assigned node.
+.. note::
+
+  When imaging a cluster with Foundation, the CVMs and hypervisor management IP addresses must be in the same subnet. IPMI IP addresses can be in the same, or different, subnet. If IPMI will not be in the same subnet as CVM/hypervisor, Foundation can use different IP addresses for IPMI and CVM/hypervisor while on a flat, L2 network by clicking **Assign two IP addresses to this installer**.
+
+Click **Next**.
+
+Click **Click here** to manually specify the MAC address of your assigned nodes.
 
 .. note::
 
@@ -234,17 +252,20 @@ Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond t
 - **Cluster Name** - Test-Cluster
 
   *Cluster Name is a "friendly" name that can be easily changed post-installation. It is common to create a DNS A record of the Cluster Name that points to the Cluster Virtual IP.*
-- **NTP Servers of Every Hypervisor and CVM** - 10.21.253.10
-- **DNS Servers of Every Hypervisor and CVM** - 10.21.253.10
-
-  *DNS and NTP servers should be captured as part of install planning with the customer.*
-- **Cluster Virtual IP** - 10.21.\ *XYZ*\ .37
-
-  *Cluster Virtual IP needs to be within the same subnet as the CVM/hypervisor.*
+- **Timezone of Every CVM** - America/Los_Angeles
 - **Cluster Redundancy Factor** - RF2
 
   *Redundancy Factor 2 requires a minimum of 3 nodes, Redundancy Factor 3 requires a minimum of 5 nodes. Cluster creation during Foundation will fail if the appropriate minimum is not met.*
-- **Timezone of Every Hypervisor and CVM** - America/Los_Angeles
+- **Cluster Virtual IP** - 10.21.\ *XYZ*\ .37
+
+  *Cluster Virtual IP needs to be within the same subnet as the CVM/hypervisor.*
+- **NTP Servers of Every CVM** - 10.42.196.10
+- **DNS Servers of Every CVM and Host** - 10.42.196.10
+
+  *DNS and NTP servers should be captured as part of install planning with the customer.*
+
+
+
 - **Netmask of Every IPMI** - 255.255.255.128
 - **Netmask of Every Hypervisor and CVM** - 255.255.255.128
 - **Gateway of Every IPMI** - 10.21.\ *XYZ*\ .1
@@ -255,9 +276,7 @@ Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond t
 
 .. figure:: images/11.png
 
-.. note::
 
-  When imaging a cluster with Foundation, the CVMs and hypervisor management IP addresses must be in the same subnet. IPMI IP addresses can be in the same, or different, subnet. If IPMI will not be in the same subnet as CVM/hypervisor, Foundation can be configured to use different IP addresses for IPMI and CVM/hypervisor while on a flat, L2 network. Be careful to avoid duplicate IP address when specifying the **IP of the Interface for the Hypervisor-CVM Subnet**.
 
   .. figure:: images/13.png
 

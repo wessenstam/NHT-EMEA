@@ -8,12 +8,12 @@ MY_CVM_IP=$(/sbin/ifconfig eth0 | grep 'inet ' | awk '{ print $2}')
 array=(${MY_CVM_IP//./ })
 MY_HPOC_SITE=${array[1]}
 MY_HPOC_NUMBER=${array[2]}
-MY_NEW_PE_PASSWORD='techX2018!'
+MY_NEW_PE_PASSWORD='techX2019!'
 MY_SP_NAME='SP01'
 MY_CONTAINER_NAME='Default'
 MY_IMG_CONTAINER_NAME='Images'
-MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.1.2/Foundation_VM-4.1.2-disk-0.qcow2'
-MY_XRAY_SRC_URL='http://download.nutanix.com/xray/3.1.0/xray-3.1.qcow2'
+MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.3.1/Foundation_VM-4.3.1-disk-0.qcow2'
+MY_XRAY_SRC_URL='http://download.nutanix.com/xray/3.3.0/xray.qcow2'
 
 # Source Nutanix environments (for PATH and other things)
 source /etc/profile.d/nutanix_env.sh
@@ -29,7 +29,7 @@ if [[ -z ${MY_PE_PASSWORD+x} ]]; then
 fi
 
 # Create single node cluster
-yes | cluster --cluster_name=NHTLab --dns_servers=10.21.253.10 --ntp_servers=10.21.253.10 --svm_ips=${MY_CVM_IP} create
+yes | cluster --cluster_name=NHTLab --dns_servers=10.42.196.10 --ntp_servers=10.42.196.10 --svm_ips=${MY_CVM_IP} create
 
 # Wait for Prism to start
 sleep 300
