@@ -249,7 +249,7 @@ Fill out the following fields and click **Next**:
 - **Cluster Redundancy Factor** - RF2
 
   *Redundancy Factor 2 requires a minimum of 3 nodes, Redundancy Factor 3 requires a minimum of 5 nodes. Cluster creation during Foundation will fail if the appropriate minimum is not met.*
-- **Cluster Virtual IP** - 10.21.\ *XYZ*\ .37
+- **Cluster Virtual IP** - 10.42.\ *XYZ*\ .37
 
   *Cluster Virtual IP needs to be within the same subnet as the CVM/hypervisor.*
 - **DNS Servers of Every CVM and Host** - 10.42.196.10

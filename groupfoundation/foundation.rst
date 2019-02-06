@@ -256,7 +256,7 @@ Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond t
 - **Cluster Redundancy Factor** - RF2
 
   *Redundancy Factor 2 requires a minimum of 3 nodes, Redundancy Factor 3 requires a minimum of 5 nodes. Cluster creation during Foundation will fail if the appropriate minimum is not met.*
-- **Cluster Virtual IP** - 10.21.\ *XYZ*\ .37
+- **Cluster Virtual IP** - 10.42.\ *XYZ*\ .37
 
   *Cluster Virtual IP needs to be within the same subnet as the CVM/hypervisor.*
 - **NTP Servers of Every CVM** - 10.42.196.10
@@ -264,23 +264,13 @@ Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond t
 
   *DNS and NTP servers should be captured as part of install planning with the customer.*
 
-
-
-- **Netmask of Every IPMI** - 255.255.255.128
-- **Netmask of Every Hypervisor and CVM** - 255.255.255.128
-- **Gateway of Every IPMI** - 10.21.\ *XYZ*\ .1
-- **Gateway of Every Hypervisor and CVM** - 10.21.\ *XYZ*\ .1
 - **vRAM Allocation for Every CVM, in Gigabytes** - 32
 
   *Refer to AOS Release Notes > Controller VM Memory Configurations for guidance on CVM Memory Allocation.*
 
 .. figure:: images/11.png
 
-
-
-  .. figure:: images/13.png
-
-Download your desired AOS package from http://10.21.22.50/aos/.
+Download your desired AOS package from http://10.42.8.50/aos/.
 
 By default, Foundation does not have any AOS or hypervisor images. To upload AOS or hypervisor files, click **Manage AOS Files**.
 
