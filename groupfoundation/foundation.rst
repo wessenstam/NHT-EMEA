@@ -1,3 +1,6 @@
+.. role:: html(raw)
+   :format: html
+
 .. _groupfoundation_lab:
 
 ----------
@@ -174,11 +177,11 @@ Select **Save & Quit** and press **Return**.
 Running Foundation
 ++++++++++++++++++
 
-From within the Foundation VM console, launch **Nutanix Foundation** from the desktop.
+:html:`<strong><font color="red">From within the Foundation VM console, launch the Nutanix Foundation icon from the desktop. This is important as you will be downloading a large AOS binary file later in the lab. Using your local browser over the VPN will result in a very slow download.</font></strong>`
 
 .. note::
 
-  Foundation can be accessed via any browser at \http://*<Foundation VM IP>*:8000/gui/index.html
+  Foundation can be accessed via any browser, including your local browser outside of the Foundation VM, at \http://*<Foundation VM IP>*:8000/gui/index.html.
 
 If prompted to upgrade, click **Remind Me Later**.
 
