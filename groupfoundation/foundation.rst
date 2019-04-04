@@ -20,12 +20,12 @@ Using the spreadsheet below, locate your **Group Number** and corresponding deta
 
 .. raw:: html
 
-  <iframe src=https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:l41 style="position: relative; height: 300px; width: 98%; border: none"></iframe>
-
-If you find it more convenient, you can open the table in a new tab `here <https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml>`_.
+   <iframe width="98%" height="600" frameborder="0" scrolling="no" src="https://nutanixinc-my.sharepoint.com/:x:/g/personal/matthew_bator_nutanix_com/EdpnKQfT40pMmMOqhfZEuNEBYhyKzLamWA7bt4SICGqF-A?e=X5snC7&action=embedview&Item='Cluster%20Details'!A1%3AM41&wdHideGridlines=True&wdInConfigurator=True"></iframe>
 
 References and Downloads
 ........................
+
+The following links are provided for reference and not required to complete the lab exercise.
 
 - `Field Installation Guide <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-v4-3:Field-Installation-Guide-v4-3>`_ - *Comprehensive Foundation documentation, including steps for local deployment of Foundation VM.*
 - `Foundation Release Notes <https://portal.nutanix.com/#/page/docs/details?targetId=Field-Installation-Guide-Rls-Notes-v4-3:Field-Installation-Guide-Rls-Notes-v4-3>`_ - *Fixes, known issues, enhancements, and upgrade information.*

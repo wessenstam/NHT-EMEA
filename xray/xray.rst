@@ -20,16 +20,16 @@ For environments where DHCP is unavailable (or there isn't a sufficiently large 
 Cluster Details
 ...............
 
-Using the spreadsheet below, locate your **Group Number** and corresponding details for your group's assigned cluster.
+Using the spreadsheet below, locate your **Group Number** and corresponding details for your assigned cluster.
 
 .. raw:: html
 
-  <iframe src=https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml?gid=0&amp;single=false&amp;widget=false&amp;chrome=false&amp;headers=false&amp;range=a1:l41 style="position: relative; height: 300px; width: 98%; border: none"></iframe>
-
-If you find it more convenient, you can open the table in a new tab `here <https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml>`_.
+   <iframe width="98%" height="600" frameborder="0" scrolling="no" src="https://nutanixinc-my.sharepoint.com/:x:/g/personal/matthew_bator_nutanix_com/EdpnKQfT40pMmMOqhfZEuNEBYhyKzLamWA7bt4SICGqF-A?e=X5snC7&action=embedview&Item='Cluster%20Details'!A1%3AM41&wdHideGridlines=True&wdInConfigurator=True"></iframe>
 
 References and Downloads
 ........................
+
+The following links are provided for reference and not required to complete the lab exercise.
 
 - `X-Ray Guide <https://portal.nutanix.com/#/page/docs/details?targetId=X-Ray-Guide-v33:X-Ray-Guide-v33>`_ - *X-Ray documentation*
 - `X-Ray Downloads <https://portal.nutanix.com/#/page/static/supportTools>`_ - *Portal location to download the latest X-Ray OVA and QCOW2 images.*
