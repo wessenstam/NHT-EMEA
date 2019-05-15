@@ -79,12 +79,14 @@ During the remainder of the exercise, your team will:
 - Install the Foundation VM on Node D
 - Use Foundation to image Nodes A, B, and C and create a 3 node cluster
 
-For the complete steps used to stage the environment, refer to :ref:`diyfoundation_lab`.
+.. note::
+
+   For the complete steps used to stage the environment, refer to the :ref:`diyfoundation_lab` Practice Lab.
 
 Installing Foundation
 +++++++++++++++++++++
 
-Open \https://*<NODE D CVM IP>*:9440 in your browser and log in with the following credentials:
+Open \https://*<CVM IP of NODE D>*:9440 in your browser and log in with the following credentials:
 
 - **Username** - admin
 - **Password** - techX2019!
@@ -102,12 +104,20 @@ Fill out the following fields and click **Save**:
 - **Name** - Primary
 - **VLAD ID** - 0
 
+.. note::
+
+   Using VLAN 0 (referred to as an **Untagged** or **Access** network) is equivalent to running a Foundation VM on your laptop, with a bridged network connection to your physical Ethernet adapter, plugged into a flat, unmanaged switch connected to your Nutanix block being imaged.
+
 Click **Create Network**. Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Save**:
 
 - **Name** - Secondary
 - **VLAD ID** - *<Secondary VLAN ID>*
 
 .. figure:: images/00.png
+
+.. note::
+
+   The **Secondary** network will be used later in the :ref:`groupxray_lab` lab.
 
 In **Prism > VM > Table** and click **+ Create VM**.
 
@@ -120,7 +130,7 @@ Fill out the following fields and click **Save**:
 - Select **+ Add New Disk**
 
   - **Operation** - Clone from Image Service
-  - **Image** - Foundation
+  - **Image** - Foundation.qcow2
   - Select **Add**
 - Select **Add New NIC**
 
@@ -131,7 +141,7 @@ Select your **Foundation** VM and click **Power on**.
 
 .. note::
 
-  At the time of writing, Foundation 4.3.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
+  At the time of writing, Foundation 4.3.4 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
 
   **Unless otherwise directed by support, always use the latest version of Foundation.**
 
@@ -155,7 +165,7 @@ Select **eth0** and press **Return**.
 
 Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond to your HPOC network, fill out the following fields, select **OK** and press **Return**:
 
-- **Use DHCP** - Press **Space** to de-select
+- Un-select **Use DHCP** by pressing **Space**
 - **Static IP** - *<Foundation VM IP>*
 - **Netmask** - 255.255.255.128
 - **Gateway** - *<Gateway IP>*
@@ -194,6 +204,12 @@ On the **Start** page, fill out the following fields:
 - **Select which network to use for this installer** - eth0
 - **Select your hardware platform** - Nutanix
 - **Will your production switch do link aggregation?** - No
+- **Will your production switch have VLANs** - No
+
+.. note::
+
+   Selecting **Yes** will allow you to tag the CVM/Hypervisor VLAN as part of the installation, saving additional steps post-Foundation for readying the cluster to cutover to a production network. It is common for the Ethernet uplinks for each node to be connected to trunked ports tagged for several VLANs (CVM/Hypervisor network, user VM networks, backup network, etc.).
+
 - **Netmask of Every Host and CVM** - 255.255.255.128
 - **Gateway of Every Host and CVM** - 10.42.\ *XYZ*\ .1
 - **Netmask of Every IPMI** - 255.255.255.128
@@ -231,6 +247,10 @@ Fill out the following fields and click **Add Nodes**:
 
 Using the `Cluster Details`_ spreadsheet, fill out the following fields for **Nodes A, B, and C ONLY** and click **Next**:
 
+.. note::
+
+  Use **Tools > Range Autofill** to quickly specify Node IPs. Specify the first IP in the field at the top of the table to provide enumerated values for the entire column.
+
 - **Node** - *<Node Position>*
 - **IPMI MAC** - *<IPMI MAC>*
 - **IPMI IP** - *<IPMI IP>*
@@ -239,10 +259,6 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields for **No
 - **Hypervisor Hostname** - *<Hypervisor Hostname>*
 
 .. figure:: images/10.png
-
-.. note::
-
-  Use **Tools > Range Autofill** to quickly specify Node IPs. Specify the first IP in the field at the top of the table to provide enumerated values for the entire column.
 
 .. note::
 
@@ -273,7 +289,7 @@ Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond t
 
 .. figure:: images/11.png
 
-Download your desired AOS package from http://10.42.8.50/aos/.
+From within the Foundation VM console, download your desired AOS package from http://10.42.194.11/workshop_staging/nht/.
 
 By default, Foundation does not have any AOS or hypervisor images. To upload AOS or hypervisor files, click **Manage AOS Files**.
 
@@ -285,7 +301,11 @@ Click **+ Add > Choose File**. Select your downloaded *nutanix_installer_package
 
 .. note::
 
-  If downloading the AOS package within the Foundation VM, the .tar.gz package can also be moved to ~/foundation/nos rather than uploaded to Foundation through the web UI. After moving the package into the proper directory, click **Manage AOS Files > Refresh**.
+  If downloading the AOS package within the Foundation VM, the .tar.gz package can also be moved to ~/foundation/nos rather than uploaded to Foundation through the web UI.
+
+  .. figure:: images/12.png
+
+  After moving the package into the proper directory, click **Manage AOS Files > Refresh** to discover the manually staged AOS package.
 
 After the upload completes, click **Close**. Click **Next**.
 

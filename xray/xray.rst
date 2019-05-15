@@ -42,32 +42,33 @@ The following links are provided for reference and not required to complete the 
 Configuring Target Cluster Networks
 +++++++++++++++++++++++++++++++++++
 
-Log into **Prism** on your 3-node **POC** cluster (10.42.\ *XYZ*\ .37).
+Log into **Prism Element** on the **3-node** cluster created in the previous lab (10.42.\ *XYZ*\ .37). This cluster will be used as an X-Ray target, meaning it will run worker VMs. It will **not** run the X-Ray VM.
 
 Open **Prism > VM > Table** and click **Network Config**.
 
 .. figure:: images/0.png
 
-Before creating the VM, we must first create a virtual network to assign to the Foundation VM. The network will use the Native VLAN assigned to the physical uplinks for all 4 nodes in the block.
+We will use the **Secondary** network VLAN for communication between the X-Ray VM and X-Ray worker VMs. This is accomplished via "Zero Configuration" networking, as the 3-node cluster **Secondary** and 1-node cluster **Secondary** networks are the same Layer 2 network and there is no DHCP.
 
 Click **Virtual Networks > Create Network**.
 
-Fill out the following fields and click **Save**:
-
-- **Name** - Primary
-- **VLAD ID** - 0
-
-Click **Create Network**. Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Save**:
+Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Save**:
 
 - **Name** - Secondary
 - **VLAD ID** - *<Secondary VLAN ID>*
 
 .. figure:: images/1.png
 
+.. note::
+
+   You can create the VLAN 0 network on this cluster as well, though it is not required for this exercise.
+
 Creating X-Ray VM
 +++++++++++++++++
 
-Log into **Prism** on your **NHTLab** 1-node cluster (10.42.\ *XYZ*\ .32).
+Next you will deploy the X-Ray VM outside of your cluster targeted for testing. This is to ensure X-Ray tests that perform power operations on hosts don't inadvertently power off the X-Ray VM itself.
+
+Log into **Prism Element** on your **1-node** cluster (10.42.\ *XYZ*\ .32).
 
 In **Prism > VM > Table** and click **+ Create VM**.
 
@@ -80,7 +81,7 @@ Fill out the following fields and click **Save**:
 - Select **+ Add New Disk**
 
   - **Operation** - Clone from Image Service
-  - **Image** - X-Ray
+  - **Image** - X-Ray.qcow2
   - Select **Add**
 - Select **Add New NIC**
 
@@ -93,27 +94,29 @@ Fill out the following fields and click **Save**:
 
 Select your **XRay** VM and click **Power on**.
 
+The X-Ray VM is created with 2 NICs. The **Primary** NIC allows for access to the web interface from any other routable network, and the **Secondary** network is only for communication between X-Ray and its worker VMs deployed on target clusters.
+
 .. note::
 
-  At the time of writing, X-Ray 3.3 is the latest available version. The URL for the latest X-Ray OVA & QCOW2 images can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/static/supportTools>`_.
+  At the time of writing, X-Ray 3.4 is the latest available version. The URL for the latest X-Ray OVA & QCOW2 images can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/static/supportTools>`_.
 
 Once the VM has started, click **Launch Console**.
 
-Click the **Network** icon in the upper right-hand corner of the XRay VM console and select **Ethernet (eth0) Connected > Wired Settings**.
+Click **Applications > System Tools > Settings** in the upper-left hand corner of the X-Ray VM console.
+
+.. figure:: images/2b.png
+
+Under **Network**, select :fa:`cog` under **Ethernet (eth0)**.
 
 .. note::
 
   It is critical that you select the network adapter assigned to the **Primary** network (you can confirm by comparing the MAC address in the VM console to the MAC address shown in Prism). We will use this network to assign a static IP to the X-Ray VM to access the web interface. We will NOT assign an address to the **Secondary** network adapter. This network will be used for zero configuration communication between the X-Ray VM and client VMs. This approach is helpful when DHCP isn't available or the DHCP scope isn't large enough to support X-Ray testing.
 
-.. figure:: images/2.png
-
-Select **Ethernet (eth0)** and click the **Gear Icon**.
-
 .. figure:: images/3.png
 
 Select **IPv4**. Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Apply**:
 
-- **Addresses** - Manual
+- **IPv4 Method** - Manual
 - **Address** - 10.42.\ *XYZ*\ .42
 - **Netmask** - 255.255.255.128
 - **Gateway** - 10.42.\ *XYZ*\ .1
@@ -125,7 +128,7 @@ Use the toggle switch to turn the **eth0** adapter off and back on to ensure the
 
 .. raw:: html
 
-  <strong><font color="red">Close the XRay VM console.</font></strong>
+  <strong><font color="red">Close the X-Ray VM console.</font></strong>
 
 Configuring X-Ray
 +++++++++++++++++
@@ -154,7 +157,9 @@ Click **Done**.
 
   If deploying X-Ray in an environment without internet access, tokens can be generated at https://my.nutanix.com/#/page/xray.
 
-Select **Targets** from the navigation bar and click **+ New Target**. Fill out the following fields and click **Next**:
+Next you will configure your 3-node cluster as the target for running X-Ray tests.
+
+Select **Targets** from the navigation bar and click **Add Target**. Fill out the following fields and click **Next**:
 
 - **Name** - *<3-Node Cluster Name>*
 - **Manager Type** - Prism
@@ -194,11 +199,11 @@ Running X-Ray Tests
 
 While X-Ray offers many testing options that evaluate critical Day 2+ scenarios, for lack of time, we will utilize a simple microbenchmark test in this exercise.
 
-Select **Tests** from the navigation bar and select **Four Corners Microbenchmark**.
+Select **Tests** from the navigation bar and select **Four Corners Microbenchmark > View & Run Test**.
 
 .. figure:: images/17.png
 
-Review the test description, then select your **POC-Cluster** under **Targets** and click **Add to Queue**.
+Review the test description, then select your **Test-Cluster** under **Choose test target** and click **Run Test**.
 
 .. figure:: images/18.png
 
@@ -206,13 +211,13 @@ Review the test description, then select your **POC-Cluster** under **Targets** 
 
   X-Ray can run one test per target at a time. Many tests can be queued for a single target, allowing X-Ray to automatically run through multiple tests without requiring manual intervention. Through automation, X-Ray can drastically decrease the amount of time to conduct a POC.
 
-Select **Results** from the navigation bar and select the **Four Corners Microbenchmark** under **In Progress Tests**.
+Select **Results** from the navigation bar and select the **In Progress** **Four Corners Microbenchmark** on your **Test-Cluster**.
+
+Click **Running** under **Status** for additional details on the running test.
 
 .. figure:: images/19.png
 
-Click **In progress** for additional details on the running test.
-
-When the test reaches the **Run** phase, log into Prism on your 3-node cluster to monitor VM performance during the test.
+When the test reaches the **Run** phase (**Phase 3 of 4**), log into Prism on your 3-node cluster to monitor VM performance during the test.
 
 .. figure:: images/20.png
 
@@ -220,7 +225,7 @@ When the test reaches the **Run** phase, log into Prism on your 3-node cluster t
 
   High storage latency is expected during the "pre-filling" stage prior to running the target workloads as X-Ray worker VMs are writing sequential 1MB blocks to their disks to ensure the tests do not read only zeroes.
 
-Upon completion of the test, select the **POC-Cluster Four Corners Microbenchmark** now located under **Completed Tests**.
+Upon completion of the test, select the **Finished Four Corners Microbenchmark** now located under **Results > All Results**.
 
 .. figure:: images/21.png
 
@@ -242,19 +247,21 @@ Download the following exported X-Ray test results:
 - :download:`Competitor Big Data Ingest Results<xray-big-data-competitor.zip>`
 - :download:`Nutanix Big Data Ingest Results<xray-big-data-nutanix.zip>`
 
-Select :fa:`cog` **> Import Test Results** from the navigation bar.
+Select :fa:`cog` **> Import Test Results Bundle** from the navigation bar.
 
-Click **Choose File** and select the Nutanix test results .zip file previously downloaded. Click **Import**.
+Click **Choose File** and select the Nutanix test results .zip file previously downloaded. Click **Upload**.
 
 .. figure:: images/23.png
 
 Repeat to import the Competitor test results .zip file.
 
-Select **Analyses** from the navigation bar and click **Create Analysis**.
+Refresh the **Results** page and note **NTNX** and **Competitor-X** Big Data Ingestion test results now appear in the list as finished.
+
+Select both tests and click **Create Comparison** to generate a comparison of the two sets of results.
 
 .. figure:: images/24.png
 
-Select the 2 **BigData Ingestion** results and click **Create**.
+Under **My Comparisons**, select the **Comparative Result Name** of your newly created comparison.
 
 .. figure:: images/25.png
 

@@ -12,8 +12,8 @@ MY_NEW_PE_PASSWORD='techX2019!'
 MY_SP_NAME='SP01'
 MY_CONTAINER_NAME='Default'
 MY_IMG_CONTAINER_NAME='Images'
-MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.3.1/Foundation_VM-4.3.1-disk-0.qcow2'
-MY_XRAY_SRC_URL='http://download.nutanix.com/xray/3.3.0/xray.qcow2'
+MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.3.4/Foundation_VM-4.3.4-disk-0.qcow2'
+MY_XRAY_SRC_URL='http://download.nutanix.com/xray/3.4.0/xray.qcow2'
 
 # Source Nutanix environments (for PATH and other things)
 source /etc/profile.d/nutanix_env.sh
@@ -48,7 +48,7 @@ my_log "Check if there is a container named ${MY_IMG_CONTAINER_NAME}, if not cre
     || ncli container create name="${MY_IMG_CONTAINER_NAME}" sp-name="${MY_SP_NAME}"
 
 # Importing images
-MY_IMAGE="Foundation"
+MY_IMAGE="Foundation.qcow2"
 retries=1
 my_log "Importing ${MY_IMAGE} image"
 until [[ $(acli image.create ${MY_IMAGE} container="${MY_IMG_CONTAINER_NAME}" image_type=kDiskImage source_url=${MY_FND_SRC_URL} wait=true) =~ "complete" ]]; do
@@ -62,7 +62,7 @@ until [[ $(acli image.create ${MY_IMAGE} container="${MY_IMG_CONTAINER_NAME}" im
   sleep 5
 done
 
-MY_IMAGE="X-Ray"
+MY_IMAGE="X-Ray.qcow2"
 retries=1
 my_log "Importing ${MY_IMAGE} image"
 until [[ $(acli image.create ${MY_IMAGE} container="${MY_IMG_CONTAINER_NAME}" image_type=kDiskImage source_url=${MY_XRAY_SRC_URL} wait=true) =~ "complete" ]]; do

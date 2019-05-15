@@ -116,11 +116,11 @@ Fill out the following fields and click **Save**:
 - **Image Type** - Disk
 - **Storage Container** - default-container
 - Select **From URL**
-- **Image Source** - http://download.nutanix.com/foundation/foundation-4.3.1/Foundation_VM-4.3.1-disk-0.qcow2
+- **Image Source** - http://download.nutanix.com/foundation/foundation-4.3.1/Foundation_VM-4.3.4-disk-0.qcow2
 
 .. note::
 
-  At the time of writing, Foundation 4.3.1 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
+  At the time of writing, Foundation 4.3.4 is the latest available version. The URL for the latest Foundation VM QCOW2 image can be downloaded from the `Nutanix Portal <https://portal.nutanix.com/#/page/foundation>`_.
 
   **Unless otherwise directed by support, always use the latest version of Foundation.**
 
@@ -208,6 +208,7 @@ On the **Start** page, fill out the following fields, replacing the octet(s) tha
 - **Select which network to use for this installer** - eth0
 - **Select your hardware platform** - Nutanix
 - **Will your production switch do link aggregation?** - No
+- **Will your production switch have VLANs** - No
 - **Netmask of Every Host and CVM** - 255.255.255.128
 - **Gateway of Every Host and CVM** - 10.42.\ *XYZ*\ .1
 - **Netmask of Every IPMI** - 255.255.255.128
