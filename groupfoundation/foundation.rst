@@ -291,6 +291,21 @@ Using the `Cluster Details`_ spreadsheet, replace the octet(s) that correspond t
 
 From within the Foundation VM console, download your desired AOS package from http://10.42.194.11/workshop_staging/nht/.
 
+.. note::
+
+  :html:`<strong><font color="red">My download is going super slow, what's wrong?</font></strong>`
+
+  If you chose to access the Foundation web interface through your local browser (ideal and common in the real world), rather than the Firefox browser within the Foundation VM console, you're trying to download a 4+ GB file over a WAN link.
+
+  To get your lab back on track, without abandoning your progress in your local browser:
+
+  - Open the Foundation VM console from within Prism
+  - Download your AOS package from http://10.42.194.11/workshop_staging/nht/ and place it in the ~/foundation/nos folder. This is the directory that Foundation will place packages uploaded through the web interface.
+
+  .. figure:: images/12.png
+
+  This same approach can be used to pre-populate AOS and hypervisor packages within Foundation prior to going on-site to perform an installation.
+
 By default, Foundation does not have any AOS or hypervisor images. To upload AOS or hypervisor files, click **Manage AOS Files**.
 
 .. figure:: images/14.png
@@ -301,11 +316,7 @@ Click **+ Add > Choose File**. Select your downloaded *nutanix_installer_package
 
 .. note::
 
-  If downloading the AOS package within the Foundation VM, the .tar.gz package can also be moved to ~/foundation/nos rather than uploaded to Foundation through the web UI.
-
-  .. figure:: images/12.png
-
-  After moving the package into the proper directory, click **Manage AOS Files > Refresh** to discover the manually staged AOS package.
+  If you have manually staged your AOS package in the ~/foundation/nos, click **Manage AOS Files > Refresh** to discover the AOS package.
 
 After the upload completes, click **Close**. Click **Next**.
 
