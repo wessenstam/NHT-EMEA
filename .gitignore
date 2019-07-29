@@ -1,6 +1,7 @@
 # Build generated files #
 ######################
 _build
+_builds
 
 # OS generated files #
 ######################

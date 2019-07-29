@@ -133,7 +133,7 @@ Click **Virtual Networks > Create Network**.
 Fill out the following fields and click **Save**:
 
 - **Name** - Primary
-- **VLAD ID** - 0
+- **VLAN ID** - 0
 
 In **Prism > VM > Table** and click **+ Create VM**.
 
