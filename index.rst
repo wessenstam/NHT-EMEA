@@ -2,21 +2,41 @@
 
 .. toctree::
   :maxdepth: 2
-  :caption: NHT Group Labs
-  :name: _labs
+  :caption: Day 1 - Labs
+  :name: _labs1
   :hidden:
 
-  groupfoundation/foundation
+  nutanix101/nutanix101
+  ncc-ui/ncc-ui
+  foundation-part-1/part1
+  setup-cluster/setup-cluster
+  ncc-cmdl/ncc-cmdl
   xray/xray
-  ncc/ncc
+  foundation-part-2/part2
+  deployment/deployment
+
 
 .. toctree::
   :maxdepth: 2
-  :caption: Practice Labs
-  :name: _labs
+  :caption: Day 2 - Labs of Choice
+  :name: _labs2
   :hidden:
 
-  diyfoundation/diyfoundation
+  files/files
+  calm/calm
+  flow/flow
+  era/era
+  karbon/karbon
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Appendix
+  :name: _labsA
+  :hidden:
+
+  tools_vms/linux_tools_vm
+  tools_vms/windows_tools_vm
+
 
 .. _getting_started:
 
@@ -30,8 +50,19 @@ Getting Started
 
 Welcome to Nutanix New Hire Training! Carefully review the **Overview** section of each lab before proceeding with the exercise.
 
+.. _cluster_details:
+
 Cluster Access
 ++++++++++++++
+
+To make sure you use your IP addresses, naming and other information please use the below spreadsheet.
+
+.. raw:: html
+
+  <iframe src="https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vTohdHcbfSzB65Z1C8d7cAJEmDcZs5DDvUtsXPoezVwdLwOWHipU_Nu8U7ft1DmInKpnAvqWUP_ZfSd/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" style="position: relative; height: 600px; width: 98%; border: none"></iframe>
+
+.. note::
+    Write down your IP addresses on a piece of paper to make it a bit easier for yourself...
 
 The Nutanix Hosted Proof of Concept (HPOC) environment can only be accessed via VPN or by connecting to the **NTNX_corp** network.
 

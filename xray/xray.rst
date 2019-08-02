@@ -1,4 +1,4 @@
-.. _groupxray_lab:
+.. _xray_lab:
 
 -----
 X-Ray
@@ -9,7 +9,7 @@ Overview
 
 .. note::
 
-  Estimated time to complete: **60 Minutes**
+  Estimated time to complete: **45 Minutes**
 
 X-Ray is an automated testing application for virtualized infrastructure solutions. It is capable of running test scenarios end-to-end to evaluate system attributes in real-world use cases. In this exercise you will deploy and configure an X-Ray VM, run X-Ray tests, and analyze results.
 
@@ -20,11 +20,11 @@ For environments where DHCP is unavailable (or there isn't a sufficiently large 
 Cluster Details
 ...............
 
-Using the spreadsheet below, locate your **Group Number** and corresponding details for your assigned cluster.
+Using the spreadsheet below, locate your IP Address of the assigned cluster and corresponding details.
 
 .. raw:: html
 
-   <iframe width="98%" height="600" frameborder="0" scrolling="no" src="https://nutanixinc-my.sharepoint.com/:x:/g/personal/matthew_bator_nutanix_com/EdpnKQfT40pMmMOqhfZEuNEBYhyKzLamWA7bt4SICGqF-A?e=X5snC7&action=embedview&Item='Cluster%20Details'!A1%3AM41&wdHideGridlines=True&wdInConfigurator=True"></iframe>
+   <iframe src="https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vTohdHcbfSzB65Z1C8d7cAJEmDcZs5DDvUtsXPoezVwdLwOWHipU_Nu8U7ft1DmInKpnAvqWUP_ZfSd/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" style="position: relative; height: 400px; width: 98%; border: none"></iframe>
 
 References and Downloads
 ........................
