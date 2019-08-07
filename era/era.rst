@@ -69,12 +69,12 @@ Registering a Cluster
 
 #. Select **I have read and agree to terms and conditions** and click **Continue**.
 
-#. Enter **techX2019!** as the **admin** password and click **Set Password**.
+#. Enter **nht2EMEA!** as the **admin** password and click **Set Password**.
 
 #. Login using the following credentials:
 
    - **Username** - admin
-   - **Password** - techX2019!
+   - **Password** - nht2EMEA!
 
 #. On the **Welcome to Era** page, fill in the following information:
 
@@ -82,7 +82,7 @@ Registering a Cluster
    - **Description** - (Optional) Description
    - **Address** - *Your Prism Element Cluster IP*
    - **Prism Element Administrator** - admin
-   - **Password** - techX2019!
+   - **Password** - nht2EMEA!
 
    .. figure:: images/3b2.png
 
@@ -264,50 +264,6 @@ Now that Era has successfully provisioned a database instance, you will connect 
 
    .. figure:: images/5h2.png
 
-..  Now you will create a table to store data regarding Names and Ages.
-
-  Expand *Initials*\_**labdb** **> Schemas > public**. Right-click on **Tables** and select **Create > Table**.
-
-  .. figure:: images/5e.png
-
-  On the **General** tab, enter **table1** as the **Name**.
-
-  On the **Columns** tab, click **+** and fill out the following fields:
-
-  - **Name** - Id
-  - **Data type** - integer
-  - **Primary key?** - Yes
-
-  Click **+** and fill out the following fields:
-
-  - **Name** - Name
-  - **Data type** - text
-  - **Primary key?** - No
-
-  Click **+** and fill out the following fields:
-
-  - **Name** - Age
-  - **Data type** - integer
-  - **Primary key?** - No
-
-  .. figure:: images/5f.png
-
-  Click **Save**.
-
-  Using your **Tools VM**, open the following link to download a .CSV file containing data for your database table: http://ntnx.tips/EraTableData
-
-  Using **pgAdmin**, right-click **table1** and select **Import/Export**.
-
-  Toggle the **Import/Export** button to **Import** and fill out the following fields:
-
-  - **Filename** - C:\\Users\\Nutanix\\Downloads\\table1data.csv
-  - **Format** - csv
-
-  .. figure:: images/5g.png
-
-  Click **OK**.
-
-  You can view the imported data by right-clicking **table1** and selecting **View/Edit Data > All Rows**.
 
 Cloning Your PostgreSQL Source
 ++++++++++++++++++++++++++++++
@@ -494,8 +450,4 @@ Cleanup
 
 .. raw:: html
 
-  <strong><font color="red">Once your lab completion has been validated, PLEASE do your part to remove any unneeded VMs to ensure resources are available for all users on your shared cluster.</font></strong>
-
-.. **IF** you **DO NOT** intend on completing either the :ref:`cloud_native_lab` or :ref:`calm_win` labs, **THEN** you should delete the *Initials*-**Era**, *Initials*-**DBServer**, and *Initials*-**DBServer-Clone** VMs deployed as part of this exercise.
-
-.. **IF** you **DO** intend on completing either the :ref:`cloud_native_lab` or :ref:`calm_win` labs, **THEN** you should only delete the *Initials*-**DBServer** and *Initials*-**DBServer-Clone** VMs deployed as part of this exercise. Both VMs should be removed via the Era web interface but will still need to be powered off and deleted through Prism.
+  <strong><font color="red">Once you completed your lab, PLEASE remove any unneeded VMs to ensure resources are available on your shared cluster.</font></strong>

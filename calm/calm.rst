@@ -490,7 +490,7 @@ To take advantage of a scale out web tier, your application needs to be able to 
    - **Cloud** - Nutanix
    - **OS** - Linux
    - **VM Name** - @@{User_initials}@@-HAProxy-@@{calm_array_index}@@-@@{calm_time}@@
-   - **Image** - CentOS\_7\_Cloud
+   - **Image** - CentOS7.qcow2
    - **Device Type** - Disk
    - **Device Bus** - SCSI
    - Select **Bootable**
@@ -702,55 +702,10 @@ Cleanup
 
 .. raw:: html
 
-  <strong><font color="red">Once your lab completion has been validated, PLEASE do your part to remove any unneeded VMs to ensure resources are available for all users on your shared cluster.</font></strong>
+  <strong><font color="red">Once you completed your lab, PLEASE remove any unneeded VMs to ensure resources are available on your shared cluster.</font></strong>
 
 Delete your application deployment in Calm.
 
-Getting Connected
-+++++++++++++++++
-
-Have a question about **Nutanix Calm**? Please reach out to the resources below:
-
-+---------------------------------------------------------------------------------+
-|  Calm Product Contacts                                                          |
-+================================+================================================+
-|  Slack Channel                 |  #Calm                                         |
-+--------------------------------+------------------------------------------------+
-|  Product Manager               |  Jasnoor Gill, jasnoor.gill@nutanix.com        |
-+--------------------------------+------------------------------------------------+
-|  Product Marketing Manager     |  Chris Brown, christopher.brown@nutanix.com    |
-+--------------------------------+------------------------------------------------+
-|  Technical Marketing Engineer  |  Michael Haigh, michael.haigh@nutanix.com      |
-+--------------------------------+------------------------------------------------+
-|  Solutions Architect           |  Ben Peterson, bp@nutanix.com                  |
-+--------------------------------+------------------------------------------------+
-|  Solutions Architect           |  Mark Lavi, mark.lavi@nutanix.com              |
-+--------------------------------+------------------------------------------------+
-|  Solutions Architect           |  Andy Schmid, andy.schmid@nutanix.com          |
-+--------------------------------+------------------------------------------------+
-|  Founders Team Manager         |  Mike Masterson, mike.masterson@nutanix.com    |
-+--------------------------------+------------------------------------------------+
-|  Founders Team                 |  Akbar Aziz, akbar.aziz@nutanix.com            |
-+--------------------------------+------------------------------------------------+
-|  Founders Team                 |  David Roberts, dave.roberts@nutanix.com       |
-+--------------------------------+------------------------------------------------+
-|  Founders Team                 |  Sachin Malhotra, sachin.malhotra@nutanix.com  |
-+--------------------------------+------------------------------------------------+
-|  SME Americas                  |  Alex Lott, alex.lott@nutanix.com              |
-+--------------------------------+------------------------------------------------+
-|  SME APAC                      |  Lei Ming Pan, leiming.pan@nutanix.com         |
-+--------------------------------+------------------------------------------------+
-|  SME APAC                      |  Chris Rasmussen, crasmussen@nutanix.com       |
-+--------------------------------+------------------------------------------------+
-|  SME EMEA                      |  Christophe Jauffret, christophe@nutanix.com   |
-+--------------------------------+------------------------------------------------+
-|  SME EMEA                      |  Jose Gomez, jose.gomez@nutanix.com            |
-+--------------------------------+------------------------------------------------+
-
-.. |proj-icon| image:: ../images/projects_icon.png
-.. |mktmgr-icon| image:: ../images/marketplacemanager_icon.png
-.. |mkt-icon| image:: ../images/marketplace_icon.png
-.. |bp-icon| image:: ../images/blueprints_icon.png
 .. |blueprints| image:: images/blueprints.png
 .. |applications| image:: images/blueprints.png
 .. |projects| image:: images/projects.png

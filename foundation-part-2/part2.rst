@@ -1,4 +1,4 @@
-.. role:: html(raw)
+detailed.. role:: html(raw)
    :format: html
 
 .. _foundation_lab_part2:
@@ -141,7 +141,15 @@ Click **Start > Proceed** and continue to monitor Foundation progress through th
 
 Wait till the foundation has finished.. Grab :fa:`coffee`
 
+.. note::
+  If you are interested in more detailed information on the progress of the foundation process, open a terminal session on the Foundation server or ssh into it using your favourite ssh client. Use **nutanix** and **nutanix/4u** as credentials. After login; type ``cd /home/nutanix/foundation/log``. When you run the command ``tail -f debug.log`` you will see the overall process *BEFORE* the imaging started. Any encountered issues before the imaging process starts, for example IPMI IP Address setting, can be found in the api.log file in the same location. If the imaging started, run ``tail -f /home/nutanix/foundation/log/last_session/debug.log`` to see all steps taken *DURING* the imaging process of **all nodes**.
+
+  .. figure:: images/22.png
+
 .. figure:: images/20.png
+
+.. note::
+  Older session of foundation can be found in ``/home/nutanix/foundation/log/archive``. Every session that has run will be archived here independent fail or success status when finished.
 
 **Close the Foundation VM Console.**
 

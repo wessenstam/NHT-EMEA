@@ -538,7 +538,7 @@ Cleanup
 
 .. raw:: html
 
-  <strong><font color="red">Once your lab completion has been validated, PLEASE do your part to remove any unneeded VMs to ensure resources are available for all users on your shared cluster.</font></strong>
+  <strong><font color="red">Once you completed your lab, PLEASE remove any unneeded VMs to ensure resources are available on your shared cluster.</font></strong>
 
 .. If you do **NOT** intend to complete the :ref:`epoch` lab, delete your application deployment in Calm. Otherwise the same deployment can be used, but be sure to change your security policy back to **Monitor** mode.
 

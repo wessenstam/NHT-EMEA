@@ -2,9 +2,9 @@
 
 .. _nutanix101:
 
-------------------------
+-----------
 Nutanix 101
-------------------------
+-----------
 
 *The estimated time to complete this lab is 60 minutes.*
 
@@ -25,7 +25,7 @@ The Prism service provides the web UI for managing Nutanix clusters and runs on 
 #. Log in using the following credentials:
 
    - **Username** - admin
-   - **Password** - *HPOC Password*
+   - **Password** - nht2EMEA!
 
    .. figure:: images/nutanix_tech_overview_01.png
 

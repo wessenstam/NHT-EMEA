@@ -406,22 +406,8 @@ The true power of Files scalability is the ability to simply add more Files VMs,
 
      If only three entries are present, you can automatically update DNS entries from **Prism > File Server** by selecting your Files cluster and clicking **DNS**.
 
-Coming Soon!
-++++++++++++
-
-In the upcoming Files 3.5 launch, Files will introduce:
-
-- Support for NFSv3
-
-- Support for Self-Service File Restore for NFS (currently supported for SMB shares)
-
-- Support for Change File Tracking (CFT) Backup for NFS (currently supported for SMB shares)
-
-- Support for Nutanix software-based Data-At-Rest Encryption
-
-- Support for multi-protocol access to shares
-
-- A new File Analytics dashboard, providing a comprehensive view into Files usage for the purposes of capacity planning, security, and compliance.
+Version 3.5.x
+++++++++++++++
 
 **Check out the video below for a look at the upcoming Files enhancements!**
 
@@ -449,9 +435,8 @@ Cleanup
 
 .. raw:: html
 
-  <strong><font color="red">Once your lab completion has been validated, PLEASE do your part to remove any unneeded VMs to ensure resources are available for all users on your shared cluster.</font></strong>
+  <strong><font color="red">Once you completed the lab, PLEASE do your part to remove any unneeded VMs to ensure resources are available on your shared cluster.</font></strong>
 
-.. If you do **NOT** intend to complete the :ref:`peer` or :ref:`hycu` labs, you can delete your Files deployment. If you **DO** intend to complete the :ref:`peer` or :ref:`hycu` labs, you will use your existing Files deployment.
 
 
 Additional Resources
