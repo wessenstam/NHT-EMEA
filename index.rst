@@ -51,12 +51,16 @@ Getting Started
 
 Welcome to Nutanix New Hire Training! Carefully review the **Overview** section of each lab before proceeding with the exercise.
 
+.. note::
+  Shown screenshots are there for example purposes! Use **your** information!
+
 .. _cluster_details:
 
 Cluster Access
 ++++++++++++++
 
 To make sure you use your IP addresses, naming and other information please use the below spreadsheet.
+For the IP address of your assigned Cluster use the IP Address in the Cluster IP column.
 
 .. raw:: html
 

@@ -1,0 +1,9 @@
+# IP Address of the fourth node|Password of node
+10.42.92.32|nht2EMEA!
+10.42.100.32|nht2EMEA!
+10.42.91.32|nht2EMEA!
+10.42.2.32|nht2EMEA!
+10.42.73.32|nht2EMEA!
+10.42.85.32|nht2EMEA!
+10.42.48.32|nht2EMEA!
+10.42.112.32|nht2EMEA!

@@ -11,7 +11,7 @@ Overview
 
   Estimated time to complete: **90 Minutes**
 
-Foundation is used to automate the installation of the hypervisor and Controller VM on one or more nodes. In this exercise you will deploy a Foundation VM on a shared cluster, configure Foundation, and use it to image a single Nutanix node. Upon successful completion of imaging, you will work as part of a team to form a cluster from the individual nodes.
+Foundation is used to automate the installation of the hypervisor and Controller VM on one or more nodes. In this exercise you will deploy a Foundation VM on a shared cluster in pairs, configure Foundation, and use it to image a single Nutanix node. Upon successful completion of imaging, you will work as part of a team to form a cluster from the individual nodes.
 
 Documentation and Downloads
 ...........................
@@ -70,7 +70,7 @@ Foundation is distributed as a VM image that can be run on multiple platforms, i
 
   Always use the latest available version of Foundation to image your cluster.
 
-Open https://10.21.22.37:9440 in your browser to access Prism. Log in with the following credentials:
+Open \https://10.21.**XYZ-OCTET**.32:9440 in your browser to access the shared Cluster using Prism. Log in with the following credentials:
 
 - **Username** - admin
 - **Password** - *<Instructor Provided>*
@@ -79,7 +79,7 @@ In **Prism > VM > Table**, click **+ Create VM**.
 
 Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Save**:
 
-- **Name** - Foundation-*<Student Number>*
+- **Name** - Foundation-*<INITIALS>*
 - **vCPU(s)** - 2
 - **Number of Cores per vCPU** - 1
 - **Memory** - 4 GiB
@@ -93,7 +93,7 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields and clic
   - **VLAN Name** - VLAN *<VLAN ID>*
   - Select **Add**
 
-Select your **Foundation-<Student Number>** VM and click **Power on**.
+Select your **Foundation-<INITIALSr>** VM and click **Power on**.
 
 Once the VM has started, click **Launch Console**.
 
@@ -116,7 +116,7 @@ Select **eth0** and press **Return**.
 Using the `Cluster Details`_ spreadsheet, fill out the following fields, select **OK** and press **Return**:
 
 - **Use DHCP** - Press **Space** to de-select
-- **Static IP** - *<Foundation IP>*
+- **Static IP** - *<Foundation VM>*
 - **Netmask** - 255.255.255.128
 - **Gateway** - *<Gateway IP>*
 
@@ -167,6 +167,9 @@ Fill out the following fields and click **Add Nodes**:
 
 Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Next**:
 
+.. note::
+  Don't use the fourth node or the D position! This is your cluster on which you run the Foundation server!!!
+
 - **Node** - *<Node Position>*
 - **IPMI MAC** - *<IPMI MAC>*
 - **IPMI IP** - *<IPMI IP>*
@@ -201,7 +204,7 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields and clic
 
   .. figure:: images/12.png
 
-  In this exercise, each team of four will manually create the cluster after imaging their individual nodes with Foundation. Attempting to automatically create the cluster with a single, standard node will fail.
+  In this exercise, each team of two will manually create the cluster after imaging their individual nodes with Foundation. Attempting to automatically create the cluster with a single, standard node will fail.
 
 .. note::
 
