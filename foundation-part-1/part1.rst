@@ -221,7 +221,7 @@ By default, Foundation does not have any AOS or hypervisor images. To upload AOS
 
 .. figure:: images/14.png
 
-Click **+ Add > Choose File**. Select ``\\hpoc-afs.nutanixdc.local\iso\Nutanix\AOS\5.6\nutanix_installer_package-release-euphrates-5.6-stable.tar.gz`` and click **Upload**.
+Click **+ Add > Choose File**. Select ``\\hpoc-afs.nutanixdc.local\iso\Nutanix\AOS\5.11\	nutanix_installer_package-release-euphrates-5.11-stable-x86_64.tar.gz`` and click **Upload**.
 
 .. figure:: images/15.png
 
@@ -231,7 +231,7 @@ After the upload completes, click **Close**.
 
 Fill out the following fields and click **Next**:
 
-- **AOS Installer for Every Node** - nutanix_installer_package-release-euphrates-5.6-stable.tar.gz
+- **AOS Installer for Every Node** - 	nutanix_installer_package-release-euphrates-5.11-stable-x86_64.tar.gz
 - **Hypervisor Installer for Every Node** - AHV, AHV installer bundled inside the AOS installer
 
 .. figure:: images/17.png

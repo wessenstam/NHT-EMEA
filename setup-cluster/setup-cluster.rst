@@ -23,7 +23,7 @@ Using the :ref:`cluster_details` spreadsheet, execute the following to manually 
 
 .. code-block:: bash
 
-  cluster --cluster_name=<CLUSTER NAME> --redundancy_factor=2 --cluster_external_ip=<CLUSTER IP> --dns_servers=10.21.253.10 --ntp_servers=10.21.253.10 --svm_ips=<NODE A CVM IP> create
+  cluster --cluster_name=<CLUSTER NAME> --redundancy_factor=2 --cluster_external_ip=<CLUSTER IP> --dns_servers=10.42.196.10 --ntp_servers=10.42.196.10 --svm_ips=<NODE A CVM IP> create
 
 This command will:
 
