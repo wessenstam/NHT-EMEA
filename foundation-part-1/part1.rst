@@ -78,7 +78,7 @@ Open \https://10.42.**XYZ-OCTET**.32:9440 in your browser to access the shared C
 
 .. note::
 
-  If a network is not available, create a new network where the VLAN ID is the **XYZ_Octet** number, like you have done before. Without a network, nothing will work. Also make sure that you are communicating with your other cluster users who is going to create the network.
+  If a network is not available, create a new network with **VLAN ID 0** , like you have done before. Without a network, nothing will work. Also make sure that you are communicating with your other cluster users who is going to create the network.
 
 
 In **Prism > VM > Table**, click **+ Create VM**.
