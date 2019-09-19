@@ -90,7 +90,7 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields and clic
   - Select **Add**
 - Select **Add New NIC**
 
-  - **VLAN Name** - VLAN *<VLAN ID>*
+  - **VLAN Name** - VLAN *XYZ-Octet number*
   - Select **Add**
 
 Select your **Foundation-<INITIALSr>** VM and click **Power on**.
