@@ -70,7 +70,7 @@ Foundation is distributed as a VM image that can be run on multiple platforms, i
 
   Always use the latest available version of Foundation to image your cluster.
 
-Open \https://10.21.**XYZ-OCTET**.32:9440 in your browser to access the shared Cluster using Prism. Log in with the following credentials:
+Open \https://10.42.**XYZ-OCTET**.32:9440 in your browser to access the shared Cluster using Prism. Log in with the following credentials:
 
 - **Username** - admin
 - **Password** - *<Instructor Provided>*
