@@ -31,7 +31,7 @@ Using the spreadsheet below, locate your **Group Number** and corresponding deta
 
   <iframe src="https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vTohdHcbfSzB65Z1C8d7cAJEmDcZs5DDvUtsXPoezVwdLwOWHipU_Nu8U7ft1DmInKpnAvqWUP_ZfSd/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" style="position: relative; height: 400px; width: 98%; border: none"></iframe>
 
-If you find it more convenient, you can open the table in a new tab `here <https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vRWks2j0KM7oqMh5XsXIW19WB1aU147OEbm2DkzR47xpPToN3rwySXCZOG-9M0EHMScC9mzP89ntJ4x/pubhtml>`_.
+If you find it more convenient, you can open the table in a new tab `here <https://docs.google.com/a/nutanix.com/spreadsheets/d/e/2PACX-1vTohdHcbfSzB65Z1C8d7cAJEmDcZs5DDvUtsXPoezVwdLwOWHipU_Nu8U7ft1DmInKpnAvqWUP_ZfSd/pubhtml>`_.
 
 Cabling Your Hardware
 +++++++++++++++++++++
@@ -73,11 +73,11 @@ Foundation is distributed as a VM image that can be run on multiple platforms, i
 Open \https://10.42.**XYZ-OCTET**.32:9440 in your browser to access the shared Cluster using Prism. Log in with the following credentials:
 
 - **Username** - admin
-- **Password** - *<Instructor Provided>*
+- **Password** - *nht2EMEA!*
 
 
 .. note::
-  
+
   If a network is not available, create a new network where the VLAN ID is the **XYZ_Octet** number, like you have done before. Without a network, nothing will work. Also make sure that you are communicating with your other cluster users who is going to create the network.
 
 
@@ -96,7 +96,7 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields and clic
   - Select **Add**
 - Select **Add New NIC**
 
-  - **VLAN Name** - VLAN *XYZ-Octet number*
+  - **VLAN Name** - *Name of the earlier created network*
   - Select **Add**
 
 Select your **Foundation-<INITIALSr>** VM and click **Power on**.
