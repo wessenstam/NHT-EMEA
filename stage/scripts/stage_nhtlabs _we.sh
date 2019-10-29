@@ -1,38 +1,48 @@
-#echo "Y" | cluster stop
-#echo "Y" | cluster destroy # DOES NOT WORK, REQUIRES LOCAL INPUT - need to change reservations to be 3 out of 4 nodes, and orchestrate
-
 # Script file name
-MY_SCRIPT_NAME=`basename "$0"`
+MY_SCRIPT_NAME=`basename "$0"` 	# Watch the ` symbol and not the ‘ symbol!
 # Derive HPOC number from IP 3rd byte
 MY_CVM_IP=$(/sbin/ifconfig eth0 | grep 'inet ' | awk '{ print $2}')
 array=(${MY_CVM_IP//./ })
 MY_HPOC_SITE=${array[1]}
 MY_HPOC_NUMBER=${array[2]}
-MY_NEW_PE_PASSWORD='techX2019!'
+MY_NEW_PE_PASSWORD='techX2019!' 	# CHANGE THIS TO YOUR PASSWORD!!!!
+MY_PE_PASSWORD='techX2019!' 	# CHANGE THIS TO YOUR PASSWORD!!!!
 MY_SP_NAME='SP01'
 MY_CONTAINER_NAME='Default'
 MY_IMG_CONTAINER_NAME='Images'
-MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.4.1/Foundation_VM-4.4.1-disk-0.qcow2'
-MY_XRAY_SRC_URL='http://download.nutanix.com/xray/3.5.0/xray.qcow2'
+MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.3.4/Foundation_VM-4.3.4-disk-0.qcow2'
+MY_XRAY_SRC_URL='http://download.nutanix.com/xray/3.4.0/xray.qcow2'
 
 # Source Nutanix environments (for PATH and other things)
 source /etc/profile.d/nutanix_env.sh
 # Logging function
 function my_log {
-    #echo `$MY_LOG_DATE`" $1"
     echo $(date "+%Y-%m-%d %H:%M:%S") $1
 }
 # Check if we got a password from environment or from the settings above, otherwise exit before doing anything
-if [[ -z ${MY_PE_PASSWORD+x} ]]; then
+if [[ -z ${MY_PE_PASSWORD} ]]; then
     my_log "No password provided, exiting"
     exit -1
 fi
 
-# Create single node cluster
-yes | cluster --cluster_name=NHTLab --dns_servers=10.42.196.10 --ntp_servers=10.42.196.10 --svm_ips=${MY_CVM_IP} create
+# Install jq from the internal HTTP repo server
+wget -q http://10.42.194.11/workshop_staging/jq-linux64.dms # Download to local CVM
+chmod u+x jq-linux64.dms 						# Set execution permissions
+ln -s jq-linux64.dms jq 						# Create a symbolic link
+mv jq* ${HOME}/bin/ 						# move to the bin dir so we can run it using just jq
 
-# Wait for Prism to start
-sleep 300
+
+# Create single node cluster
+#echo y | cluster --cluster_name=NHTLab --dns_servers=10.42.196.10 --ntp_servers=10.42.196.10 --svm_ips=${MY_CVM_IP} create
+
+# Wait for Prism to start using API calls
+result=$(curl -X POST https://127.0.0.1:9440/api/nutanix/v3/clusters/list -H 'Content-Type: application/json' --insecure -u admin:"${MY_NEW_PE_PASSWORD}"  -d '{"kind":"cluster","length":500,"offset":0}' --silent | jq '.entities[].metadata.kind' |  grep cluster | wc -l)
+
+while [[ ${result} -lt 1 ]]
+do
+    # Cluster is not yet initiated
+    result=$(curl -X POST https://127.0.0.1:9440/api/nutanix/v3/clusters/list -H 'Content-Type: application/json' --insecure -u admin:"${MY_NEW_PE_PASSWORD}"  -d '{"kind":"cluster","length":500,"offset":0}' --silent | jq '.entities[].metadata.kind' |  grep cluster | wc -l)
+done
 
 # Set Admin password
 ncli user reset-password user-name='admin' password=${MY_NEW_PE_PASSWORD}
@@ -47,10 +57,36 @@ my_log "Check if there is a container named ${MY_IMG_CONTAINER_NAME}, if not cre
     && echo "Container ${MY_IMG_CONTAINER_NAME} already exists" \
     || ncli container create name="${MY_IMG_CONTAINER_NAME}" sp-name="${MY_SP_NAME}"
 
+# Validate EULA on PE
+my_log "Validate EULA on PE"
+curl --insecure --silent -u admin:${MY_NEW_PE_PASSWORD} -k -H 'Content-Type: application/json' -X POST \
+  https://127.0.0.1:9440/PrismGateway/services/rest/v1/eulas/accept \
+  -d '{
+    "username": "SE",
+    "companyName": "NTNX",
+    "jobTitle": "SE"
+}'
+
+# Disable Pulse in PE
+my_log "Disable Pulse in PE"
+curl --insecure --silent -u admin:${MY_NEW_PE_PASSWORD} -k -H 'Content-Type: application/json' -X PUT \
+  https://127.0.0.1:9440/PrismGateway/services/rest/v1/pulse \
+  -d '{
+    "defaultNutanixEmail": null,
+    "emailContactList": null,
+    "enable": false,
+    "enableDefaultNutanixEmail": false,
+    "isPulsePromptNeeded": false,
+    "nosVersion": null,
+    "remindLater": null,
+    "verbosityType": null
+}'
+
 # Importing images
 MY_IMAGE="Foundation.qcow2"
 retries=1
-my_log "Importing ${MY_IMAGE} image"
+MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.3.4/Foundation_VM-4.3.4-disk-0.qcow2'
+
 until [[ $(acli image.create ${MY_IMAGE} container="${MY_IMG_CONTAINER_NAME}" image_type=kDiskImage source_url=${MY_FND_SRC_URL} wait=true) =~ "complete" ]]; do
   let retries++
   if [ $retries -gt 5 ]; then
@@ -75,28 +111,3 @@ until [[ $(acli image.create ${MY_IMAGE} container="${MY_IMG_CONTAINER_NAME}" im
   my_log "acli image.create ${MY_IMAGE} FAILED. Retrying upload (${retries} of 5)..."
   sleep 5
 done
-
-# Validate EULA on PE
-my_log "Validate EULA on PE"
-curl -u admin:${MY_NEW_PE_PASSWORD} -k -H 'Content-Type: application/json' -X POST \
-  https://127.0.0.1:9440/PrismGateway/services/rest/v1/eulas/accept \
-  -d '{
-    "username": "SE",
-    "companyName": "NTNX",
-    "jobTitle": "SE"
-}'
-
-# Disable Pulse in PE
-my_log "Disable Pulse in PE"
-curl -u admin:${MY_NEW_PE_PASSWORD} -k -H 'Content-Type: application/json' -X PUT \
-  https://127.0.0.1:9440/PrismGateway/services/rest/v1/pulse \
-  -d '{
-    "defaultNutanixEmail": null,
-    "emailContactList": null,
-    "enable": false,
-    "enableDefaultNutanixEmail": false,
-    "isPulsePromptNeeded": false,
-    "nosVersion": null,
-    "remindLater": null,
-    "verbosityType": null
-}'
