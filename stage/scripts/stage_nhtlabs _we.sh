@@ -33,7 +33,7 @@ mv jq* ${HOME}/bin/ 						# move to the bin dir so we can run it using just jq
 
 
 # Create single node cluster
-#echo y | cluster --cluster_name=NHTLab --dns_servers=10.42.196.10 --ntp_servers=10.42.196.10 --svm_ips=${MY_CVM_IP} create
+echo y | cluster --cluster_name=NHTLab --dns_servers=10.42.196.10 --ntp_servers=10.42.196.10 --svm_ips=${MY_CVM_IP} create
 
 # Wait for Prism to start using API calls
 result=$(curl -X POST https://127.0.0.1:9440/api/nutanix/v3/clusters/list -H 'Content-Type: application/json' --insecure -u admin:"${MY_NEW_PE_PASSWORD}"  -d '{"kind":"cluster","length":500,"offset":0}' --silent | jq '.entities[].metadata.kind' |  grep cluster | wc -l)
@@ -41,6 +41,7 @@ result=$(curl -X POST https://127.0.0.1:9440/api/nutanix/v3/clusters/list -H 'Co
 while [[ ${result} -lt 1 ]]
 do
     # Cluster is not yet initiated
+    sleep 30 # Wait 30 seconds
     result=$(curl -X POST https://127.0.0.1:9440/api/nutanix/v3/clusters/list -H 'Content-Type: application/json' --insecure -u admin:"${MY_NEW_PE_PASSWORD}"  -d '{"kind":"cluster","length":500,"offset":0}' --silent | jq '.entities[].metadata.kind' |  grep cluster | wc -l)
 done
 
