@@ -142,6 +142,31 @@ Select **Save & Quit** and press **Return**.
 
 Close the Foundation VM console.
 
+Preparing Foundation
+++++++++++++++++++++
+
+For Foundation to work it needs to have access to installation files. This should be Hypervisor ISO files (some specific to the hardware vendor like Dell, Fujitsu and Lenovo) and AOS.
+As we are going to install AHV as the hypervisor we only need to "upload" the AOS installation files. To get to the files, we need to open the commandline of the Foundation VM and download a file.
+Follow these steps to upload the AOS 5.11.1.1 onto the Foundation VM.
+
+#. ssh into the Foundation VM
+#. Login in to the VM using **nutanix** as the username and **nutanix/4u** as the password.
+
+  .. figure:: images/20.png
+
+#. cd into ``/home/nutanix/foundation/nos``
+#. Run the command ``wget http://10.42.194.11/workshop_staging/nht/nutanix_installer_package-release-euphrates-5.11.1.1-stable-x86_64.tar.gz`` this will pull the AOS image from the Staging server within the HPOC environment
+
+  .. figure:: images/21.png
+
+#. Wait till the wget command has finished. Run ``ls -al`` to see the just "pulled" file.
+
+  .. figure:: images/2.png
+
+.. note:: The upload of the installation files can also be done via the GUI, but due to keep most of the network traffic internal in the HPOC environment, these steps were the easiest and speediest one.
+
+
+
 Running Foundation
 ++++++++++++++++++
 
@@ -223,6 +248,8 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields and clic
 Adding files to the foundation VM
 .................................
 
+.. note:: Just read the below to see the GUI way of uploading the AOS installation image. DO NOT RUN THESE STEPS!!!
+
 By default, Foundation does not have any AOS or hypervisor images. To upload AOS or hypervisor files, click **Manage AOS Files**.
 
 .. figure:: images/14.png
@@ -235,9 +262,11 @@ After the upload completes, click **Close**.
 
 .. figure:: images/16.png
 
+.. note:: Run from here the steps on your environment!!
+
 Fill out the following fields and click **Next**:
 
-- **AOS Installer for Every Node** - 	nutanix_installer_package-release-euphrates-5.11-stable-x86_64.tar.gz
+- **AOS Installer for Every Node** - 	nutanix_installer_package-release-euphrates-5.11.1.1-stable-x86_64.tar.gz
 - **Hypervisor Installer for Every Node** - AHV, AHV installer bundled inside the AOS installer
 
 .. figure:: images/17.png
