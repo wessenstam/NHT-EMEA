@@ -161,7 +161,7 @@ Follow these steps to upload the AOS 5.11.1.1 onto the Foundation VM.
 
 #. Wait till the wget command has finished. Run ``ls -al`` to see the just "pulled" file.
 
-  .. figure:: images/2.png
+  .. figure:: images/22.png
 
 .. note:: The upload of the installation files can also be done via the GUI, but due to keep most of the network traffic internal in the HPOC environment, these steps were the easiest and speediest one.
 
