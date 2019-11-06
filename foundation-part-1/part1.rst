@@ -11,7 +11,7 @@ Overview
 
   Estimated time to complete: **90 Minutes**
 
-Foundation is used to automate the installation of the hypervisor and Controller VM on one or more nodes. In this exercise you will deploy a Foundation VM on a shared cluster in pairs, configure Foundation, and use it to image a single Nutanix node. Upon successful completion of imaging, you will work as part of a team to form a cluster from the individual nodes.
+Foundation is used to automate the installation of the hypervisor and Controller VM on one or more nodes. In this exercise you will deploy a Foundation VM on a single Nutanix node (Node D) and use it to image one of other nodes (A, B or C). All students will create a Foundation VM however, you must decide between you which node you will be rebuilding. (As there are only 3 nodes you will need to work in pairs). The end result is that nodes A, B and C will be re-imaged ready for the next exercise of creating and configuring a Nutanix Cluster.
 
 Documentation and Downloads
 ...........................
@@ -38,7 +38,7 @@ Cabling Your Hardware
 
 .. note::
 
-  The following lab will be performed with a cluster in the Nutanix Hosted POC environment. The information on cabling below is for reference when performing a physical, baremetal Nutanix installation.
+  The following lab will be performed with a cluster in the Nutanix Hosted POC environment. The information on cabling below is for reference when performing a physical, bare metal Nutanix installation.
 
 Foundation requires connectivity to **both** the standard network interface of a node and the Baseboard Management Controller (BMC) network interface. The BMC, called **IPMI** on Nutanix NX nodes, is a dedicated system present in every enterprise server platform used for out of band management. Other supported platforms use different names for IPMI, such as iDRAC on Dell, IMM on Lenovo, and iLO on HPE.
 
@@ -70,18 +70,24 @@ Foundation is distributed as a VM image that can be run on multiple platforms, i
 
   Always use the latest available version of Foundation to image your cluster.
 
-Open \https://10.42.**XYZ-OCTET**.32:9440 in your browser to access the shared Cluster using Prism. Log in with the following credentials:
+Open \https://10.42.**XYZ-OCTET**.32:9440 in your browser to access the single Nutanix node (Node D) using Prism. Log in with the following credentials:
 
 - **Username** - admin
 - **Password** - *nht2EMEA!*
 
 
-.. note::
+This is a fresh deployment and the node will not have any network configuration. Follow these steps to create a single native VLAN network.
 
-  If a network is not available, create a new network which has **VLAN ID 0**, like you have done before. Without a network, nothing will work. Also make sure that you are communicating with your other cluster users who is going to create the network.
+#. In Prism select **VM**, click **Table**, click **Network Config**, this is located at the far right of the screen.
+
+#. Click **+ Create Network**.
+
+- For the **Network Name** type in **AllTraffic**.
+- For the **VLAN ID** type in **0**.
+- Click **Save**
 
 
-In **Prism > VM > Table**, click **+ Create VM**.
+In Prism select **VM**, click **Table**, click **+ Create VM**.
 
 Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Save**:
 
@@ -99,7 +105,7 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields and clic
   - **VLAN Name** - *Name of the earlier created network*
   - Select **Add**
 
-Select your **Foundation-<INITIALSr>** VM and click **Power on**.
+Select your **Foundation-<INITIALS>** VM and click **Power on**.
 
 Once the VM has started, click **Launch Console**.
 
@@ -176,54 +182,70 @@ Open \http://*<Foundation VM IP>*:8000/gui/index.html in your browser to access 
 
   **DO NOT** access the Foundation UI from the Foundation VM console. Close your Foundation VM console and access the Foundation UI via a browser in your Citrix desktop.
 
-Review the **Start** page details as it contains several helpful tips for cabling your physical hardware. Click **Next**.
+Review the **Start** page details as it contains several helpful tips for cabling your physical hardware.
 
-.. figure:: images/7.png
+.. figure:: images/7b.png
+
+
+Choose the **network to use** by clicking the selection box for Option 2.
+
+.. figure:: images/7c.png
+
+Choose the **hardware type** for Option 4.
+
+.. figure:: images/7d.png
+
+
+Type in the subnet mask and default gateway values found in the `Cluster Details`_ spreadsheet for your cluster details.
+
+.. figure:: images/7e.png
+
+Click **Next**.
 
 .. note::
 
   Foundation will automatically discover any hosts in the same IPv6 Link Local broadcast domain that is not already part of a cluster. When transferring POC assets in the field, it's not uncommon to receive a cluster that wasn't properly destroyed at the conclusion of the previous POC. In this lab, the nodes are already part of existing clusters and will not be discovered.
 
+
+
 Click **Click here** to manually specify the MAC address of your assigned node.
 
-.. figure:: images/8.png
+.. figure:: images/8b.png
 
 Fill out the following fields and click **Add Nodes**:
 
 - **Number of Blocks** - 1
 - **Nodes per Block** - 1
-- Select **I will provide the IPMI MACs**
+- Select **I will provide the IPMIs' MACs**
 
-.. figure:: images/9.png
+.. figure:: images/9b.png
 
 Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Next**:
 
 .. note::
-  Don't use the fourth node or the D position! This is your cluster on which you run the Foundation server!!!
+  Don't use the fourth node (Node D) position! This is your server on which you're running the Foundation VM!
+
+Complete the following fields. The screenshot below shows **examples**, use your `Cluster Details`_ spreadsheet.
 
 - **Node** - *<Node Position>*
 - **IPMI MAC** - *<IPMI MAC>*
 - **IPMI IP** - *<IPMI IP>*
-- **Hypervisor IP** - *<Hypervisor IP>*
+- **Host IP** - *<Hypervisor IP>*
 - **CVM IP** - *<CVM IP>*
 - **Hypervisor Hostname** - *<Hypervisor Hostname>*
 
-.. figure:: images/10.png
+.. figure:: images/10b.png
 
 .. note::
-
   In addition to the IPMI MAC address labels on the back of each node. Watchtower can be used to collect the IPMI MAC addresses of any NX appliance: *\http://watchtower.corp.nutanix.com/factoryData/<Block Serial>/*
 
-Using the `Cluster Details`_ spreadsheet, fill out the following fields and click **Next**:
+Click **Next**.
 
-- Select **Check this box if you are an advanced user who doesn't want automatic cluster creation**
-- **Netmask of Every IPMI** - 255.255.255.128
-- **Netmask of Every Hypervisor and CVM** - 255.255.255.128
-- **Gateway of Every IPMI** - *<Gateway IP>*
-- **Gateway of Every Hypervisor and CVM** - *<Gateway IP>*
-- **Memory Allocation of Every CVM** - 32
+- Select **Skip automatic cluster formation (e.g. you will use the command line)**.
+- For **Memory Allocation of Every CVM** - type in 32.
+- Click **Next**.
 
-.. figure:: images/11.png
+.. figure:: images/11b.png
 
 .. note::
 
@@ -233,13 +255,13 @@ Using the `Cluster Details`_ spreadsheet, fill out the following fields and clic
 
   In a typical scenario, imaging a cluster with Foundation for a POC, you would want Foundation to automatically create the cluster. The additional fields that are required for Foundation to create the cluster can be referenced in the screenshot below:
 
-  .. figure:: images/12.png
+  .. figure:: images/12b.png
 
   In this exercise, each team of two will manually create the cluster after imaging their individual nodes with Foundation. Attempting to automatically create the cluster with a single, standard node will fail.
 
 .. note::
 
-  When imaging a cluster with Foundation, the CVMs and hypervisor management IP addresses must be in the same subnet. IPMI IP addresses can be in the same, or different, subnet. If IPMI will not be in the same subnet as CVM/hypervisor, Foundation can be configured to use different IP addresses for IPMI and CVM/hypervisor while on a flat, L2 network. Be careful to avoid duplicate IP address when specifying the **IP of the Interface for the Hypervisor-CVM Subnet**.
+  When imaging a cluster with Foundation, the CVMs and hypervisor management IP addresses must be in the same subnet. IPMI IP addresses can be in the same, or different, subnet. If the IPMI is not in the same subnet as the CVM/hypervisor, Foundation can be configured to use different IP addresses for IPMI and CVM/hypervisor while on a flat, L2 network. Be careful to avoid duplicate IP address when specifying the **IP of the Interface for the Hypervisor-CVM Subnet**.
 
   .. figure:: images/13.png
 
@@ -267,9 +289,16 @@ After the upload completes, click **Close**.
 Fill out the following fields and click **Next**:
 
 - **AOS Installer for Every Node** - 	nutanix_installer_package-release-euphrates-5.11.1.1-stable-x86_64.tar.gz
+- Click **Next**.
+
+.. figure:: images/14b.png
+
 - **Hypervisor Installer for Every Node** - AHV, AHV installer bundled inside the AOS installer
 
-.. figure:: images/17.png
+.. figure:: images/17b.png
+
+- Click **Next**.
+
 
 .. note::
 
@@ -279,14 +308,17 @@ Fill out the following fields and click **Next**:
 
   When selecting an alternate hypervisor (ESXi, Hyper-V, XenServer) you can use this page to upload installation ISO files and, if necessary, modified whitelists.
 
-Fill out the following fields and click **Start > Proceed**:
+Fill out the following fields:
 
 - **Username** - ADMIN
 - **Password** - ADMIN
 
-.. figure:: images/18.png
+.. figure:: images/18b.png
 
-.. note:: When performing a baremetal Foundation in the field, ensure your laptop will not go to sleep due to inactivity.
+- Click **Start**.
+- Click **Proceed**.
+
+.. note:: When performing a bare metal Foundation in the field, ensure your laptop will not go to sleep due to inactivity.
 
 Continue to monitor Foundation progress through the Foundation web console. Click the **Log** link to view the realtime log output from your node.
 

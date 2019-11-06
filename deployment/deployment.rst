@@ -80,7 +80,7 @@ To start the staging script, use the command (after logging in into one of the C
 
 After starting this command the script will ask for a few parameters it needs to configure/install successfully.
 
-.. images:: images/3.png
+.. image:: images/3.png
 
 Make your selection of the to be installed/configured workshop or bootcamp.  After the last question:\"Do you want to proceed (Y/N)\" the staging process is kicked off.
 You can follow the progress using ``tail -f *.log`` on the CVM.

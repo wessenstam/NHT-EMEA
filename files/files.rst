@@ -443,5 +443,5 @@ Additional Resources
 ++++++++++++++++++++
 
 - `Nutanix Files Sizing Guide <http://download.nutanix.com/solutionsDocs/TN-2066-Nutanix-Files-Sizing-Guide.pdf>`_
-.. - `Nutanix Files Sizing Video (Employee Link) <https://mindtickle.app.link/Ooah0gdXTT>`_
-.. - `Nutanix Files Sizing Video (Partner Link) <https://mindtickle.app.link/7XrD1H6yzU>`_
+- `Nutanix Files Sizing Video (Employee Link) <https://mindtickle.app.link/Ooah0gdXTT>`_
+- `Nutanix Files Sizing Video (Partner Link) <https://mindtickle.app.link/7XrD1H6yzU>`_

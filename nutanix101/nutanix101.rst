@@ -134,7 +134,7 @@ The **Storage Pool** is the aggregation of all of the physical disks within a gi
 Configuring Storage Containers
 ..............................
 
-#. In **Prism Element> Storage**, click **Storage**, click **Table**, then click **+ Storage Container**.
+#. In **Prism Element> Storage**, click **Table**, then click **+ Storage Container**.
 
 #. Use the following specifications:
 
@@ -199,7 +199,7 @@ Nutanix clusters can also enforce `availability domain policies <https://nutanix
 
 Block Awareness, in a sufficiently large cluster, ensures that secondary copies of data are not written to a node within the same physical enclosure as the primary copy. This allows for the loss of a multi-node block without experiencing data unavailability. The same concept can be applied using a Nutanix cluster spanning multiple racks.
 
-The basic requirement for rack/block fault tolerance is to have minimum 3 blocks in the cluster (for RF2) as we need to store 3 copies of metadata. Starting in AOS 5.8, rack and block awareness can be supported with erasure coding enabled.
+The basic requirement for rack/block fault tolerance is to have minimum 3 blocks in the cluster (for RF2) as we need to store 3 copies of metadata. Starting in AOS 5.9, rack and block awareness can be supported with erasure coding enabled.
 
 #. From the View Options menu, click **Home**, and click **OK** in the **Data Resiliency Status** box.
 
@@ -316,6 +316,7 @@ Nutanix validates and distributes these drivers via http://portal.nutanix.com. T
        - Select **Update**
        *This will mount the Windows Server ISO from the Image Service for boot/installation*
 
+
    - Select **+ Add New Disk**
        - **Type** - DISK
        - **Operation** - Allocate on Storage Container
@@ -324,18 +325,23 @@ Nutanix validates and distributes these drivers via http://portal.nutanix.com. T
        - Select **Add**
        *This will create a 30GiB vDisk on the selected Storage Container*
 
+
    - Select **+ Add New Disk**
        - **Type** - CDROM
        - **Operation** - Clone from Image Service
        - **Image** - Nutanix VirtIO ISO
        - Select **Add**
 
+
    - Select **Add New NIC**
        - **VLAN Name** - Primary
        - Select **Add**
        *This will add a single virtual NIC to the VM on the selected Virtual Network*
 
+
 #. Click **Save** to create the VM.
+
+#. Click **Table** to change the view.
 
 #. Select the VM, then click **Power On** from the list of action links (below the table) to turn on the VM.
 
@@ -347,6 +353,10 @@ Nutanix validates and distributes these drivers via http://portal.nutanix.com. T
 
    .. note::
      Choose **Windows Server 2012 R2 Datacenter (Server with a GUI)** and **Custom** installation when presented with the choice.
+
+#. Accept the **EULA**.
+
+#. Select a **Custom** installation.
 
 #. Click **Load Driver** and navigate to the CD where the Nutanix VirtIO is mounted.
 
@@ -378,15 +388,27 @@ Nutanix validates and distributes these drivers via http://portal.nutanix.com. T
 
      .. figure:: images/deploy_workloads_08.png
 
+#. During the Windows setup use **nutanix/4u** as the local administrator password.
+
+#. Log in to the Windows VM, close Server Manager and shutdown the VM.
+
+#. Once powered-off edit the Windows VM properties (click the pencil icon) and eject the CD-ROM drives of their media and click **Save**.
+
 #. Following OS installation you can complete the **Nutanix Guest Tools (NGT)** installation by selecting the VM in Prism and clicking **Manage Guest Tools > Enable Nutanix Guest Tools > Mount Guest Tools**, and clicking **Submit**.
 
    This will use the virtual CD-ROM device to mount the NGT installation ISO to the VM. NGT includes the previously installed VirtIO drivers, as well as services to support self-service file restore and application consistent (VSS) snapshots.
 
     .. figure:: images/deploy_workloads_nutanix_guest_tools.png
 
+#. **Power on** the Windows VM, **Launch Console** and log in to Windows.
+
 #. Return to the VM console to complete the NGT installation by clicking on the Nutanix Guest Tools CD.
 
     .. figure:: images/deploy_workloads_ngt_mounted.png
+
+#. Using **Windows Explorer** locate the CD-ROM drive and double-click **setup.exe**.
+
+#. Follow the installer accepting *all* the defaults.
 
 Creating a Linux VM
 ...................
@@ -515,7 +537,7 @@ VM Snapshots
 
 #. If the VM is powered on, perform a **Guest Shutdown** power action.
 
-#. Select the VM and click **Snapshot** from the menu below the table.
+#. Select the VM and click **Take Snapshot** from the menu below the table.
 
 #. Provide a name for your snapshot and click **Submit**.
 
