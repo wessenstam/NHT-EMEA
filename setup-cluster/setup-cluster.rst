@@ -25,6 +25,10 @@ Using the :ref:`cluster_details` spreadsheet, execute the following to manually 
 
   cluster --cluster_name=<CLUSTER NAME> --redundancy_factor=2 --cluster_external_ip=<CLUSTER IP> --dns_servers=10.42.196.10 --ntp_servers=10.42.196.10 --svm_ips=<NODE A CVM IP> create
 
+.. note::
+Move the mouse to the end of the command text and a clipboard symbol will appear, click this to copy the command to the clipboard. Use this clipboard text and modify with your cluster specific details.
+
+
 This command will:
 
 #. Set the name of the cluster
