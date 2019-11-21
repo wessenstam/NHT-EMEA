@@ -49,7 +49,7 @@ NCC
 
 ------------
 
-Log into **Prism** on your 3-node **POC** cluster (10.21.\ *XYZ*\ .37).
+Log into **Prism** on your 3-node **POC** cluster (10.42.\ *XYZ*\ .37).
 
 Open **Prism > Health** and click **Actions > Run Checks**.
 
