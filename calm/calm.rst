@@ -32,7 +32,7 @@ Projects define a set users with a common set of requirements or a common struct
 
      Mousing over an icon will display its title.
 
-#. Under **AHV Cluster** verify your assigned cluster is selected from the drop-down list, otherwise select it.
+#. Under **AHV Cluster** verify your assigned cluster is selected from the drop-down list, otherwise select it by clicking *Select Clusters & Subnets*.
 
    .. figure:: images/project1.png
 
