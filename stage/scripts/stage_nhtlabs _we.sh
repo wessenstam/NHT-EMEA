@@ -87,7 +87,7 @@ curl --insecure --silent -u admin:${MY_NEW_PE_PASSWORD} -k -H 'Content-Type: app
 MY_IMAGE="Foundation.qcow2"
 retries=1
 MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.3.4/Foundation_VM-4.3.4-disk-0.qcow2'
-
+my_log "Importing ${MY_IMAGE} image"
 until [[ $(acli image.create ${MY_IMAGE} container="${MY_IMG_CONTAINER_NAME}" image_type=kDiskImage source_url=${MY_FND_SRC_URL} wait=true) =~ "complete" ]]; do
   let retries++
   if [ $retries -gt 5 ]; then
