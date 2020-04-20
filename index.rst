@@ -7,14 +7,14 @@
   :hidden:
 
   nutanix101/nutanix101
-
+  foundation-part-1/part1
+  setup-cluster/setup-cluster
+  
   .. ncc-ui/ncc-ui
-    foundation-part-1/part1
-    setup-cluster/setup-cluster
-    ncc-cmdl/ncc-cmdl
-    xray/xray
-    foundation-part-2/part2
-    deployment/deployment
+     ncc-cmdl/ncc-cmdl
+     xray/xray
+     foundation-part-2/part2
+     deployment/deployment
 
 
     .. toctree::
@@ -70,7 +70,18 @@ For the IP address of your assigned Cluster use the IP Address in the Cluster IP
 .. note::
     Write down your IP addresses on a piece of paper to make it a bit easier for yourself...
 
-The Nutanix Hosted Proof of Concept (HPOC) environment can only be accessed via VPN or by connecting to the **NTNX_corp** network.
+The Nutanix Hosted Proof of Concept (HPOC) environment can only be accessed via a Frame session or by connecting to the **NTNX_corp** network using VPN if you are remote.
+
+Frame session
+..............
+
+1. Login to https://frame.nutanix.com/x/labs using your supplied credentials from the Columns **Frame User** and **password**.
+2. Accept the **Nutanix Cloud Services Term of Services** by clicking on the **I Accept** button.
+3. Double click on the *Desktop* icon to start your Frame Session.
+4. This will give you a 6 hour windows for your labs. In the Windows 10 session you should have all tools needed for the labs pre-installed
+   
+   .. figure:: images/Framesession.png
+  
 
 GlobalProtect VPN Access
 ........................

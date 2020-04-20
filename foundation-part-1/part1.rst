@@ -161,7 +161,7 @@ Follow these steps to upload the AOS 5.11.1.1 onto the Foundation VM.
   .. figure:: images/20.png
 
 #. cd into ``/home/nutanix/foundation/nos``
-#. Run the command ``wget http://10.42.194.11/workshop_staging/nht/nutanix_installer_package-release-euphrates-5.11.1.1-stable-x86_64.tar.gz`` this will pull the AOS image from the Staging server within the HPOC environment
+#. Run the command ``wget http://10.42.194.11/workshop_staging/nht/nutanix_installer_package-release-euphrates-5.11.2.3-stable-x86_64.tar.gz`` this will pull the AOS image from the Staging server within the HPOC environment
 
   .. figure:: images/21.png
 
