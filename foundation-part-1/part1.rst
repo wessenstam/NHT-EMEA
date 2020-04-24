@@ -153,7 +153,7 @@ Preparing Foundation
 
 For Foundation to work it needs to have access to installation files. This should be Hypervisor ISO files (some specific to the hardware vendor like Dell, Fujitsu and Lenovo) and AOS.
 As we are going to install AHV as the hypervisor we only need to "upload" the AOS installation files. To get to the files, we need to open the commandline of the Foundation VM and download a file.
-Follow these steps to upload the AOS 5.11.1.1 onto the Foundation VM.
+Follow these steps to upload the AOS 5.16.1.2 onto the Foundation VM.
 
 #. ssh into the Foundation VM
 #. Login in to the VM using **nutanix** as the username and **nutanix/4u** as the password.
@@ -161,7 +161,7 @@ Follow these steps to upload the AOS 5.11.1.1 onto the Foundation VM.
   .. figure:: images/20.png
 
 #. cd into ``/home/nutanix/foundation/nos``
-#. Run the command ``wget http://10.42.194.11/workshop_staging/nht/nutanix_installer_package-release-euphrates-5.11.2.3-stable-x86_64.tar.gz`` this will pull the AOS image from the Staging server within the HPOC environment
+#. Run the command ``wget http://10.55.251.38/workshop_staging/nht/nutanix_installer_package-release-euphrates-5.16.1.2-stable-x86_64.tar.gz`` this will pull the AOS image from the Staging server within the HPOC environment
 
   .. figure:: images/21.png
 
