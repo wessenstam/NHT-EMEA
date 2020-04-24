@@ -5,13 +5,13 @@ MY_CVM_IP=$(/sbin/ifconfig eth0 | grep 'inet ' | awk '{ print $2}')
 array=(${MY_CVM_IP//./ })
 MY_HPOC_SITE=${array[1]}
 MY_HPOC_NUMBER=${array[2]}
-MY_NEW_PE_PASSWORD='techX2019!' 	# CHANGE THIS TO YOUR PASSWORD!!!!
-MY_PE_PASSWORD='Nutanix/4u' 	# CHANGE THIS TO YOUR PASSWORD!!!!
+MY_NEW_PE_PASSWORD='nht2EMEA!' 	# CHANGE THIS TO YOUR PASSWORD!!!!
+MY_PE_PASSWORD='nutanix/4u' 	# CHANGE THIS TO YOUR PASSWORD!!!!
 MY_SP_NAME='SP01'
 MY_CONTAINER_NAME='Default'
 MY_IMG_CONTAINER_NAME='Images'
-MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.3.4/Foundation_VM-4.3.4-disk-0.qcow2'
-MY_XRAY_SRC_URL='http://download.nutanix.com/xray/3.4.0/xray.qcow2'
+MY_FND_SRC_URL='http://download.nutanix.com/Foundation/4.5.2/Foundation_VM-4.5.2-disk-0.qcow2'
+MY_XRAY_SRC_URL='http://download.nutanix.com/XRay/3.7.0/xray.qcow2'
 
 # Source Nutanix environments (for PATH and other things)
 source /etc/profile.d/nutanix_env.sh
