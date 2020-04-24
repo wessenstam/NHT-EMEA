@@ -10,8 +10,8 @@ MY_PE_PASSWORD='nutanix/4u' 	# CHANGE THIS TO YOUR PASSWORD!!!!
 MY_SP_NAME='SP01'
 MY_CONTAINER_NAME='Default'
 MY_IMG_CONTAINER_NAME='Images'
-MY_FND_SRC_URL='http://download.nutanix.com/Foundation/4.5.2/Foundation_VM-4.5.2-disk-0.qcow2'
-MY_XRAY_SRC_URL='http://download.nutanix.com/XRay/3.7.0/xray.qcow2'
+MY_FND_SRC_URL='http://10.55.251.38/Foundation_VM-4.5.2-disk-0.qcow2'
+MY_XRAY_SRC_URL='http://10.55.251.38/xray3.7.qcow2'
 
 # Source Nutanix environments (for PATH and other things)
 source /etc/profile.d/nutanix_env.sh
@@ -86,7 +86,6 @@ curl --insecure --silent -u admin:${MY_NEW_PE_PASSWORD} -k -H 'Content-Type: app
 # Importing images
 MY_IMAGE="Foundation.qcow2"
 retries=1
-MY_FND_SRC_URL='http://download.nutanix.com/foundation/foundation-4.3.4/Foundation_VM-4.3.4-disk-0.qcow2'
 my_log "Importing ${MY_IMAGE} image"
 until [[ $(acli image.create ${MY_IMAGE} container="${MY_IMG_CONTAINER_NAME}" image_type=kDiskImage source_url=${MY_FND_SRC_URL} wait=true) =~ "complete" ]]; do
   let retries++
