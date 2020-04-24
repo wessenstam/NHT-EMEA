@@ -10,8 +10,8 @@ MY_PE_PASSWORD='nutanix/4u' 	# CHANGE THIS TO YOUR PASSWORD!!!!
 MY_SP_NAME='SP01'
 MY_CONTAINER_NAME='Default'
 MY_IMG_CONTAINER_NAME='Images'
-MY_FND_SRC_URL='http://10.55.251.38/workshop_staging/Foundation_VM-4.5.2-disk-0.qcow2'
-MY_XRAY_SRC_URL='http://10.55.251.38/workshop_staging/xray3.7.qcow2'
+MY_FND_SRC_URL='http://10.42.194.11/workshop_staging/Foundation_VM-4.5.2-disk-0.qcow2'
+MY_XRAY_SRC_URL='http://10.42.194.11/workshop_staging/xray3.7.qcow2'
 
 # Source Nutanix environments (for PATH and other things)
 source /etc/profile.d/nutanix_env.sh
@@ -33,7 +33,7 @@ mv jq* ${HOME}/bin/ 						# move to the bin dir so we can run it using just jq
 
 
 # Create single node cluster
-echo y | cluster --cluster_name=NHTLab --dns_servers=10.42.196.10 --ntp_servers=10.42.196.10 --svm_ips=${MY_CVM_IP} create
+echo y | cluster --cluster_name=NHTLab --dns_servers=10.42.196.10,8.8.8.8 --ntp_servers=10.42.196.10,0.pool.ntp.org --svm_ips=${MY_CVM_IP} create
 
 # Wait for Prism to start using API calls
 result=$(curl -X POST https://127.0.0.1:9440/api/nutanix/v3/clusters/list -H 'Content-Type: application/json' --insecure -u admin:"${MY_PE_PASSWORD}"  -d '{"kind":"cluster","length":500,"offset":0}' --silent | jq '.entities[].metadata.kind' |  grep cluster | wc -l)
