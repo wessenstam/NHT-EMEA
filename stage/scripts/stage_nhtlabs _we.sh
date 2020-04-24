@@ -10,8 +10,8 @@ MY_PE_PASSWORD='nutanix/4u' 	# CHANGE THIS TO YOUR PASSWORD!!!!
 MY_SP_NAME='SP01'
 MY_CONTAINER_NAME='Default'
 MY_IMG_CONTAINER_NAME='Images'
-MY_FND_SRC_URL='http://10.55.251.38/Foundation_VM-4.5.2-disk-0.qcow2'
-MY_XRAY_SRC_URL='http://10.55.251.38/xray3.7.qcow2'
+MY_FND_SRC_URL='http://10.55.251.38/workshop_staging/Foundation_VM-4.5.2-disk-0.qcow2'
+MY_XRAY_SRC_URL='http://10.55.251.38/workshop_staging/xray3.7.qcow2'
 
 # Source Nutanix environments (for PATH and other things)
 source /etc/profile.d/nutanix_env.sh
