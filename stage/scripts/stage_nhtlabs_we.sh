@@ -83,6 +83,12 @@ curl --insecure --silent -u admin:${MY_NEW_PE_PASSWORD} -k -H 'Content-Type: app
     "verbosityType": null
 }'
 
+# Create Primary network
+my_log "Create Primary basic network"
+curl --insecure --silent -u admin:${MY_NEW_PE_PASSWORD} -k -H 'Content-Type: application/json' -X PUT \
+  https://127.0.0.1:9440/api/nutanix/v0.8/networks \
+  -d '{"name":"Primary","vlanId":"0"}'
+
 # Importing images
 MY_IMAGE="Foundation.qcow2"
 retries=1
