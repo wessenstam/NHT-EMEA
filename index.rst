@@ -7,37 +7,28 @@
   :hidden:
 
   nutanix101/nutanix101
-  foundation-part-1/part1
-  setup-cluster/setup-cluster
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Labs of Choice
+  :name: _labs2
+  :hidden:
   
-  .. ncc-ui/ncc-ui
-     ncc-cmdl/ncc-cmdl
-     xray/xray
-     foundation-part-2/part2
-     deployment/deployment
+  files/files
+  calm/calm
+  flow/flow
+  era/era
+  karbon/karbon
 
-
-    .. toctree::
-    :maxdepth: 2
-    :caption: Day 2 - Labs of Choice
-    :name: _labs2
-    :hidden:
-
-    files/files
-    calm/calm
-    flow/flow
-    era/era
-    karbon/karbon
-
-    .. toctree::
-    :maxdepth: 2
-    :caption: Appendix
-    :name: _labsA
-    :hidden:
-
-    tools_vms/linux_tools_vm
-    tools_vms/windows_tools_vm
-    taskman/taskman
+.. toctree::
+  :maxdepth: 2
+  :caption: Appendix
+  :name: _labsA
+  :hidden:
+  
+  tools_vms/linux_tools_vm
+  tools_vms/windows_tools_vm
+  taskman/taskman
 
 
 .. _getting_started:
