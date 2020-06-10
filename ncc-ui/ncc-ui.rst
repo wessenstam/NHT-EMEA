@@ -57,7 +57,7 @@ Open **Prism > Health** and click **Actions > Run Checks**.
 
 .. note::
 
-  NCC can also be configured to run every 4 hours, daily, or weekly and the results will be e-mailed to all **E-mail Recipients** defined in **Alert E-mail Configuration** in cluster settings.
+  As this is a shared cluster, it can be that the option is grayed out, not selectable. This means that one of your other trainees has clicked the button before you. Wait till the Blue Donut Icon (top of the screen) turn Green/Red. After that color change, you should be able to run the NCC Check. NCC can also be configured to run every 4 hours, daily, or weekly and the results will be e-mailed to all **E-mail Recipients** defined in **Alert E-mail Configuration** in cluster settings.
 
 Select **All Checks**. De-select **Send the cluster check report in the email**. Click **Run**.
 
@@ -99,11 +99,15 @@ Log Collector
 
 Log into **Prism** on your 3-node **POC** cluster (10.21.\ *XYZ*\ .37).
 
-Open **Prism > Health** and click **Actions > Log Collector**.
+Open **Prism > Health** and click **Actions > Collect Logs**.
 
 .. figure:: images/1.png
 
-Select **Collect Logs starting now** and use the default collection period of 4 hours. Click **Run Now**.
+Click on the **+ Select Nodes** button and select all nodes you see and click the **Done** button. In step 2, click leave everything default and click **Next**. In the last step, change the *Select Duration...* to **4** Hours. Leave the rest default and click **Collect** to start the collection of the logs
+
+.. figure:: images/2.png
+
+Select **Collect Logs starting now** and use the default collection period of 4 hours. Click **Collect**.
 
 .. note::
 
@@ -113,7 +117,7 @@ Select **Prism > Tasks** and wait for the **Log collector** to reach 100%.
 
 .. figure:: images/6.png
 
-Click **Succeeded** under Status to download the **NCC-logs-YYYY-MM-DD-TIME.tar** file.
+Click **Succeeded** under Status to download the **NCC-logs-YYYY-MM-DD-TIME-PE.zip** file.
 
 .. note::
 
@@ -121,6 +125,6 @@ Click **Succeeded** under Status to download the **NCC-logs-YYYY-MM-DD-TIME.tar*
 
   To obtain a Log Collector bundle with anonymized data, connect to any CVM via SSH and executing the following command:
 
-  ``nutanix@CVM$ ncc log_collector --anonymize_output=True``
+  ``nutanix@CVM$ ncc log_collector --anonymize_output=True`` or use the Anonymization checkbox in the screen where you clicked on the **Collect** button
 
   Refer to `KB1406 <https://portal.nutanix.com/#/page/kbs/details?targetId=kA0600000008cPfCAI>`_ for complete details command line execution.
