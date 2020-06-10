@@ -237,7 +237,7 @@ Connect to Prism Element and create a network for user VM interfaces. Use any VL
 
 #. From the View Options menu, select **VM**, and click **Network Config** on the right hand side.
 
-#. Select **Virtual Networks**, then click **+ Create Network**.
+#. Select **Networks**, then click **+ Create Network**.
 
 #. Fill out the following fields and click **Save**:
 
@@ -392,7 +392,7 @@ Nutanix validates and distributes these drivers via http://portal.nutanix.com. T
 
 #. Log in to the Windows VM, close Server Manager and shutdown the VM.
 
-#. Once powered-off edit the Windows VM properties (click the pencil icon) and eject the CD-ROM drives of their media and click **Save**.
+#. Once powered-off edit the Windows VM properties (click pencil icon / Update) and eject the CD-ROM drives (using the Eject icon) of their media and click **Save**.
 
 #. Following OS installation you can complete the **Nutanix Guest Tools (NGT)** installation by selecting the VM in Prism and clicking **Manage Guest Tools > Enable Nutanix Guest Tools > Mount Guest Tools**, and clicking **Submit**.
 
