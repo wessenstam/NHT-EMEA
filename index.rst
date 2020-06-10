@@ -7,6 +7,8 @@
   :hidden:
 
   nutanix101/nutanix101
+  ncc-ui/ncc-ui
+  ncc-cmdl/ncc-cmdl
 
 .. toctree::
   :maxdepth: 2
@@ -17,7 +19,6 @@
   files/files
   calm/calm
   flow/flow
-  era/era
   karbon/karbon
 
 .. toctree::
@@ -66,7 +67,7 @@ The Nutanix Hosted Proof of Concept (HPOC) environment can only be accessed via 
 Frame session
 ..............
 
-1. Login to https://frame.nutanix.com/x/labs using your supplied credentials from the Columns **Frame User** and **password**.
+1. Login to https://frame.nutanix.com/x/labs using your personal username and password or if not working ask the trainer for your information.
 2. Accept the **Nutanix Cloud Services Term of Services** by clicking on the **I Accept** button.
 3. Double click on the *Desktop* icon to start your Frame Session.
 4. This will give you a 6 hour windows for your labs. In the Windows 10 session you should have all tools needed for the labs pre-installed
